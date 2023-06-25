@@ -5,7 +5,7 @@ export const Container = styled.div`
 background: var(--bg-gradient-500);
 
 
-margin-top: 20rem;
+margin-top: clamp(2rem,12vw, 20rem);
 position: relative;
 border-radius: .8rem;
 display: flex;
@@ -13,28 +13,28 @@ flex-wrap: wrap;
 gap: 10px;
 
 align-items: center;
-> div:nth-child(2){
-    padding: 20px;
-}
+
 img{
     position: absolute;
     bottom: 0;
-    width: clamp(30rem, 50vw, 70rem);
+    left: 0;
+    right: 0;
+    width: clamp(25rem, 50vw, 70rem);
     margin-left: -3rem;
    
+    @media (max-width:500px){
+        margin: 0 auto;
+    }
 }
 
-> div {
-    flex: 5 0 auto;
-    
-    
-}
+
 > div:last-child{
     text-align: end;
-    width: 190px;
+    width: 100%;
+    flex: 1 1 auto;
 
     h3{
-        font-size: clamp(.5rem, 5vw, 5rem);
+        font-size: clamp(2.3rem, 5vw, 5rem);
         line-height: 100%;
         font-weight: 700;
         margin-bottom: 2rem;
@@ -43,21 +43,24 @@ img{
     p{
         line-height: 120%;
     }
-    margin: clamp(3rem, 5vw, 30rem) clamp(3rem, 5vw, 10rem);
+    margin: clamp(2rem, 7vw, 60rem) clamp(2rem, 7vw, 20rem);
 
-    @media (max-width:700px){
+    @media (max-width:500px){
        
+            height: 240px;
         
-        flex: 1 0 auto;
+        
         
 
         p{
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
         }
 
-        
+       
     }
+
+    
 }
 `

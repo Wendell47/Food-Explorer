@@ -25,8 +25,8 @@ export default function MySwiper () {
         spaceBetween={10}
         breakpoints={{
           "@0.00": {
-            slidesPerView: 2,
-            spaceBetween: 70,
+            slidesPerView: 1,
+            spaceBetween: 30,
             
           },
           "@0.75": {

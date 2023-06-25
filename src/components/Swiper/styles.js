@@ -5,9 +5,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 position: relative;
 
-@media (max-width:700px){
-margin-right: -70px;
-}
+
 `
 
 export const GradientSide = styled.div`
