@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
 
 background: var(--bg-gradient-500);
-min-width: 1000px;
-height: 260px;
+
+
 margin-top: 20rem;
 position: relative;
 border-radius: .8rem;
@@ -19,8 +19,11 @@ align-items: center;
 img{
     position: absolute;
     bottom: 0;
-    width: calc(50rem + 10vw);
+    width: clamp(30rem, 50vw, 70rem);
+    margin-left: -3rem;
+   
 }
+
 > div {
     flex: 5 0 auto;
     
@@ -28,28 +31,33 @@ img{
 }
 > div:last-child{
     text-align: end;
+    width: 190px;
+
     h3{
-        font-size: 4rem;
-        line-height: 140%;
-        font-weight: 500;
-        margin-bottom: 1rem;
+        font-size: clamp(.5rem, 5vw, 5rem);
+        line-height: 100%;
+        font-weight: 700;
+        margin-bottom: 2rem;
     }
     
     p{
-        line-height: 100%;
+        line-height: 120%;
     }
-    margin: 30px clamp(4rem, 3rem + 10vw, 100px);
+    margin: clamp(3rem, 5vw, 30rem) clamp(3rem, 5vw, 10rem);
 
     @media (max-width:700px){
-        text-align: start;
-        width: 360px;
+       
+        
         flex: 1 0 auto;
-        margin: 30px 30px;
+        
 
         p{
             font-size: 2rem;
-            
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
         }
+
+        
     }
 }
 `

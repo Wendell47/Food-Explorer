@@ -28,9 +28,20 @@ align-items: center;
 }
 
 > div:nth-child(2){
-    flex: 1 0 auto;
+    flex: 1 0 auto;  
+}
 
-    
+@media (max-width:1100px){
+    > div{
+        flex:1 0 auto;
+    }
+> button:nth-child(3){
+    display: none;
+}
+
+> div:nth-child(2){
+    display: none;
+}
 }
 `
 export const ButtonExit = styled.button`

@@ -19,7 +19,7 @@ grid-template-areas:
 export const Content = styled.div`
 
 grid-area: content;
-
-
+overflow-y: auto;
+overflow-x: hidden;
 `
 
