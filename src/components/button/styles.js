@@ -4,12 +4,16 @@ export const Container = styled.button`
 
 
 width: 100%;
-border-radius: .5rem;
+border-radius: .8rem;
 font-family: 'Poppins', sans-serif;
 border: none;
 color: var(--color-white);
 font-weight: 500;
 padding: 12px 32px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
 
 &.btnPrimary{
     background: var(--color-primary);

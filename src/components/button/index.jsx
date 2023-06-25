@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Container } from "./styles";
 
-export default function Button({title, btn,...rest}){
+
+export default function Button({title,icon: Icon, btn,...rest}){
 
  if(btn == "primary"){
     btn = 'btnPrimary'
@@ -16,14 +17,18 @@ export default function Button({title, btn,...rest}){
     btn = "btnTransparent"
  }
     return(
-
+        <>
+      
         <Container
         
         className={btn}
 
         {...rest}
         >
-            {title}
+         {Icon && <Icon size={28}/>}         
+          {title}
         </Container>
+       
+        </>
     )
 }

@@ -23,7 +23,7 @@ export default createGlobalStyle`
     --bg-color-900: ${({theme}) => theme.COLORS.BACKGROUND_900};
     --bg-color-800: ${({theme}) => theme.COLORS.BACKGROUND_800};
     --bg-color-700: ${({theme}) => theme.COLORS.BACKGROUND_700} ;
-
+    --bg-gradient-500:${({theme}) => theme.COLORS.gradient_500};
   
 }
 

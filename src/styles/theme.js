@@ -3,7 +3,7 @@ export default {
       BACKGROUND_900: "#000A0F",
       BACKGROUND_800: "#001119",
       BACKGROUND_700: "#0D1D25",
-  
+        gradient_500:"linear-gradient(180deg, #091E26 0%, #00131C 100%)",
       WHITE: "#FFFFFF",
   
       GRAY_400: "#C4C4CC",
