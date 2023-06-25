@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+
+position: relative;
 min-height: 400px;
 text-align: center;
 display: flex;
@@ -16,7 +18,7 @@ img{
 }
 
 > h4{
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 1vw,2.5rem);
     font-weight: 700;
    
 }
@@ -50,5 +52,41 @@ align-items: center;
 
 button{
     padding: 10px;
+}
+`
+
+export const ProductFavIcon = styled.div`
+
+padding: 5px;
+color: white;
+transition: 140ms;
+z-index: 1;
+font-size: 2.4rem;
+position: absolute;
+top:0;
+right: 0;
+
+> svg{
+    transition:140ms;
+}
+
+&.active{
+   svg{
+    fill: white;
+   }
+   animation: pulse 104ms ease-in;
+}
+
+@keyframes pulse {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 1.2;
+    }
+    100%{
+        scale: 1;
+    }
+    
 }
 `
