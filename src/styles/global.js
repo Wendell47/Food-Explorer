@@ -70,12 +70,13 @@ button:hover, a:hover{
 }
 
 ::-webkit-scrollbar {
-  width: .5rem;
+  width: .2rem;
+  display: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:${({theme}) => theme.COLORS.ORANGE};
+  background:${({theme}) => theme.COLORS.BLUE};
   border-radius: 30rem;
 }
 `;

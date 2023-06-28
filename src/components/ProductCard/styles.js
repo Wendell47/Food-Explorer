@@ -46,6 +46,7 @@ gap:20px;
 
 > div{
 flex: 1 0 auto;
+
 }
 > div:last-child{
     
@@ -72,7 +73,7 @@ export const Stepper = styled.div`
 display: flex;
 gap:10px;
 align-items: center;
-
+justify-content: space-around;
 button{
     padding: 10px;
 }

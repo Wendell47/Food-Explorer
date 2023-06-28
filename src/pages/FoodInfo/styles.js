@@ -43,12 +43,11 @@ display: flex;
 flex-wrap: wrap;
 align-items: center;
 margin: 2rem 0;
-width: 100%;
-height: 100%;
+width: 100%;    
 gap:20px;
 
 p {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 2vw, 2rem);
     font-weight: 300;
     font-family: 'Poppins',sans-serif;
 
@@ -59,11 +58,21 @@ p {
 }
 > div:nth-child(1){
     flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
 }
 > div:nth-child(2){
     flex: 3  0 40%;
     
 }
+
+@media (max-width:500px){
+   
+    text-align: center;
+
+}
+
+
 `
 
 export const AddToCard = styled.div`
@@ -72,7 +81,10 @@ flex-wrap: wrap;
 width: 100%;
 gap:20px;
 
+@media (max-width:500px){
+    justify-content: center;
 
+}
 
 `
 export const Stepper = styled.div`
@@ -90,4 +102,9 @@ export const ContentTags = styled.div`
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    @media (max-width:500px){
+   justify-content: center;
+    
+}
+
 `

@@ -6,6 +6,7 @@ background: var(--bg-gradient-500);
 
 
 margin-top: clamp(2rem,12vw, 20rem);
+margin-bottom: 5rem;
 position: relative;
 border-radius: .8rem;
 display: flex;

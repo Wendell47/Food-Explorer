@@ -28,6 +28,8 @@ gap: 10px;
 }
 &.btnTransparent{
     background: transparent;
+    padding: 12px 0;
+    width: auto;
 }
 &.btnTransparentWithBorder{
     border: 1px solid var(--color-white);
