@@ -8,10 +8,12 @@ text-align: center;
 display: flex;
 align-items: center;
 flex-direction:column;
-background: var(--bg-color-900);
+background: var(--bg-gradient-500);
 padding: 2rem;
 border-radius: .8rem;
 gap: 2rem;
+
+
 img{
 
     width: 50%;
@@ -31,18 +33,39 @@ img{
     display: block;
     font-size: clamp(2rem, 3vw, 3.6rem);
     color: #82F3FF;
+    font-family: 'Roboto', sans-serif;
 }
 `
 
 export const AddToCard = styled.div`
 display: flex;
+flex-direction: column;
 flex-wrap: wrap;
 width: 100%;
 gap:20px;
+
 > div{
 flex: 1 0 auto;
 }
-
+> div:last-child{
+    
+    display: flex;
+    gap: 10px;
+    
+    > button:first-child{
+        flex: 1 2 auto;
+     width:70%;
+     padding: 1rem 0 ;
+    }
+    > button:last-child{
+        flex: 1 2 auto;
+       width: 10%;
+       padding: 0;
+       > svg{
+        width: 2rem;
+       }
+    }
+}
 `
 export const Stepper = styled.div`
 
@@ -65,7 +88,7 @@ font-size: 2.4rem;
 position: absolute;
 top:0;
 right: 0;
-
+margin: 2rem;
 > svg{
     transition:140ms;
 }

@@ -6,8 +6,9 @@ height: 100vh;
 
 display: grid;
 
+
 grid-template-columns: auto;
-grid-template-rows: 120px auto;
+grid-template-rows: clamp(70px, 10vw, 100px) auto;
 grid-template-areas: 
 
 "header"
@@ -20,6 +21,8 @@ export const Content = styled.div`
 
 grid-area: content;
 overflow-y: auto;
-overflow-x: hidden;
+
+
 `
+
 

@@ -1,4 +1,4 @@
-import { Container, Content, ButtonExit} from "./styles";
+import { Container, Content, ButtonExit, Badge} from "./styles";
 import ContainerContent from "../ContainerContent";
 import Logo from "../Logo";
 import Input from "../Input";
@@ -20,7 +20,13 @@ export default function Header(){
                 title="Pedidos"
                 icon={PiReceipt}
                 btn="primary"
-                />
+                >
+                 <Badge>
+                    <span>
+                        2
+                    </span>
+                    </Badge> 
+                </Button>
                 <ButtonExit>
                     <FiLogOut/>
                 </ButtonExit>

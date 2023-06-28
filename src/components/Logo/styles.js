@@ -6,14 +6,14 @@ gap: 10px;
 align-items: center;
 
 span{
-font-size: 4.3rem;
-font-weight: 700;
+font-size: clamp(1.6rem, 0.3rem + 1vw, 4.3rem);
+font-weight: 600;
 font-family: 'Poppins', sans-serif;
 }
 
 svg{
-    width: 6rem;
-    height: 6rem;
+    width: clamp(2.5rem, 0.3rem + 1vw, 6rem);
+    height: clamp(2.5rem, 0.3rem + 1vw, 6rem);
     animation: 900ms backwards 140ms  ease-in-out;
     animation-name: ${({ isAnimated}) => isAnimated ? 'rotate' : ''};
 }

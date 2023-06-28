@@ -29,7 +29,7 @@ top: 0;
 right: 0;
 }
 
-@media (max-width:700px){
+@media (max-width:444px){
     width: 0;
 }
 

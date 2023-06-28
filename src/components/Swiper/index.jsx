@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -7,7 +7,7 @@ import ProductCard from "../ProductCard";
 import { Container,GradientSide } from "./styles";
 // import required modules
 import { Navigation, Autoplay} from "swiper";
-import { useState } from "react";
+
 
 import img1 from '../../assets/Mask-group-1.png'
 import img2 from '../../assets/Mask-group-2.png'
@@ -21,7 +21,7 @@ let ProductInfo = [
      id: 1,
      Image:img3,   
      title: "Salada Ravanello",
-     description:"Massa fresca com camarões e pesto. ",
+     description:"Rabanetes, folhas verde e molho agridoce salpicados com gergelim",
      price:"79,97",      
 
     },
@@ -37,7 +37,7 @@ let ProductInfo = [
         id: 3,
         Image:img1,   
         title: "Torradas de Parma",
-        description:"Massa fresca com camarões e pesto. ",
+        description:"Presunto de parma e rúcula em um pão com fermentação natural.",
         price:"25,97",      
    
        },
@@ -87,7 +87,6 @@ let ProductInfo = [
 
 export default function MySwiper () {
     let MinWidth = window.screen.width;
-   
     
 
   return (
@@ -100,7 +99,7 @@ export default function MySwiper () {
             disableOnInteraction: false,
             pauseOnMouseEnter:true
           }}
-        
+        centeredSlides = {MinWidth <= 800 ? true: false}
         slidesPerView={1}
         spaceBetween={10}
         loop={true}
@@ -120,7 +119,7 @@ export default function MySwiper () {
           },
           "@1.50": {
             slidesPerView: 4,
-            spaceBetween: 50,
+            spaceBetween: 30,
           },
         }}
 
@@ -134,6 +133,7 @@ export default function MySwiper () {
             FoodTitle={product.title}
             Description={product.description}
             Price={product.price}
+            
         />
         </SwiperSlide>
             ))

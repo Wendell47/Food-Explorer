@@ -11,5 +11,7 @@ export default {
   
       RED: "#750310",
       BLUE:"#065E7C",
+
+      Tomato_400:"#AB4D55",
     }
   }

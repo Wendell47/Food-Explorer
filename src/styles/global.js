@@ -1,8 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 
-
 export default createGlobalStyle`
+
+
+
 *{
     padding:0;
     margin:0;
@@ -16,6 +18,8 @@ export default createGlobalStyle`
     --color-secondary:${({theme}) => theme.COLORS.BLUE};
 
     --color-white:${({theme}) => theme.COLORS.WHITE} ;
+
+    --color-tomato-400:${({theme}) => theme.COLORS.Tomato_400} ;
 
     --color-gray-400: ${({theme}) => theme.COLORS.GRAY_400};
     --color-gray-500:  ${({theme}) => theme.COLORS.GRAY_500};
@@ -36,17 +40,19 @@ body{
 }
 
 body, input, button, textarea {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
     font-size: 1.6rem;
 }
 
-h1,h2,h3{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
+h1,h2,h3,h4{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
 }
 
 a{
     text-decoration: none;
+    color:inherit;
 }
 
 button, a{

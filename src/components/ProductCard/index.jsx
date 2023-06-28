@@ -1,10 +1,13 @@
 import { Container, AddToCard, Stepper, ProductFavIcon} from "./styles"
 import img from "../../assets/image-3.png"
 import Button from "../button"
-import {FiPlus, FiMinus, FiHeart}from"react-icons/fi"
+import {FiPlus, FiMinus, FiHeart, FiArrowUpRight}from"react-icons/fi"
 import { useState } from "react"
+import {  useNavigate } from "react-router-dom"
 
 export default function ProductCard({FoodPicture,FoodTitle, Description, Price}){
+
+    const navigate = useNavigate ()
     const [count, setCount] = useState(0)
     const [activeButton, setActiveButton] = useState("")
 
@@ -18,6 +21,7 @@ export default function ProductCard({FoodPicture,FoodTitle, Description, Price})
             
     }
     
+
     function HandleCountAdd(){
         
         setCount(count + 1)
@@ -26,7 +30,11 @@ export default function ProductCard({FoodPicture,FoodTitle, Description, Price})
         count == 0 ? 0 : setCount(count - 1)
     }
 
+    function handleFoodDetails(){
+        navigate(`/FoodInfo`)
+    }
     return(
+        
         <Container>
             <ProductFavIcon 
             id="btnFavorite" 
@@ -64,9 +72,16 @@ export default function ProductCard({FoodPicture,FoodTitle, Description, Price})
                     title="incluir"
                     btn="primary"
                     />
+                     <Button
+                    title=""
+                    btn="btnDark"
+                    icon={FiArrowUpRight}
+                    onClick={handleFoodDetails}
+                    />
                 </div>
             </AddToCard>
 
         </Container>
+     
     )
 }

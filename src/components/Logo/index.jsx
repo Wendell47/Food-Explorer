@@ -13,7 +13,7 @@ export default function Logo({isAnimated=false}){
 
            
             <span>
-                Food explorer
+                food explorer
             </span>
         </Container>
     )

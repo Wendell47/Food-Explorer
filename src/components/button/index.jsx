@@ -2,7 +2,7 @@
 import { Container } from "./styles";
 
 
-export default function Button({title,icon: Icon, btn,...rest}){
+export default function Button({title,icon: Icon, children, btn,...rest}){
 
  if(btn == "primary"){
     btn = 'btnPrimary'
@@ -16,6 +16,9 @@ export default function Button({title,icon: Icon, btn,...rest}){
  else if (btn == 'transparent'){
     btn = "btnTransparent"
  }
+ else if (btn == 'borderTransparent'){
+   btn = "btnTransparentWithBorder"
+}
     return(
         <>
       
@@ -27,6 +30,7 @@ export default function Button({title,icon: Icon, btn,...rest}){
         >
          {Icon && <Icon size={28}/>}         
           {title}
+          {children}
         </Container>
        
         </>

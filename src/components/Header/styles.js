@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+display: flex;
 width: 100%;
 grid-area: header;
 background: var(--bg-color-800);
@@ -15,14 +16,7 @@ display: flex;
 gap:2rem;
 align-items: center;
 
-> div:first-child{
-    svg{
-        width: 3rem;
-    }
-    span{
-        font-size: 2.4rem;
-    }
-}
+
 > button:nth-child(3){
     width: 216px;
 }
@@ -54,5 +48,21 @@ color: var(--color-white);
 svg{
     width: 2.4rem;
     height: 2.4rem;
+}
+`
+export const Badge = styled.div`
+
+border-radius: 100%;
+width: 2rem;
+height: 2rem;
+background: var(--color-tomato-400);
+display: flex;
+align-items: center;
+justify-content: center;
+
+> span{
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 500;
 }
 `

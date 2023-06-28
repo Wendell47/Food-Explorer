@@ -36,12 +36,12 @@ img{
     h3{
         font-size: clamp(2.3rem, 5vw, 5rem);
         line-height: 100%;
-        font-weight: 700;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
     
     p{
         line-height: 120%;
+        color:var(--color-gray-400);
     }
     margin: clamp(2rem, 7vw, 60rem) clamp(2rem, 7vw, 20rem);
 
@@ -56,6 +56,7 @@ img{
             font-size: 1.6rem;
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
+            
         }
 
        
