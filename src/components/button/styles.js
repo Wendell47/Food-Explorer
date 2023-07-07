@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.button`
 
 
-width: 100%;
-border-radius: .8rem;
+
+border-radius: .5rem;
 font-family: 'Poppins', sans-serif;
 border: none;
 color: var(--color-white);

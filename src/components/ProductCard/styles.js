@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const Container = styled.div`
 
 position: relative;
-min-height: 400px;
+min-height: 450px;
 text-align: center;
 display: flex;
 align-items: center;
+justify-content: space-evenly;
 flex-direction:column;
 background: var(--bg-gradient-500);
 padding: 2rem;
@@ -16,7 +17,7 @@ gap: 2rem;
 
 img{
 
-    width: 50%;
+    width: 60%;
 }
 
 > h4{
@@ -24,9 +25,16 @@ img{
     font-weight: 700;
    
 }
-> p{
+.description{
+ 
+height: 40px;
 
+}
+ p{
+    overflow: hidden;
     color: var(--color-gray-400);
+    text-overflow: ellipsis;
+   
 }
 > span{
     
@@ -73,9 +81,29 @@ export const Stepper = styled.div`
 display: flex;
 gap:10px;
 align-items: center;
-justify-content: space-around;
+justify-content: space-evenly;
 button{
     padding: 10px;
+}
+
+input{
+    background: none;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border: 0;
+    
+    &:focus-visible{
+        outline: none;
+    }
+}
+button{
+
+    &:active{
+        scale: 0.9;
+   
+    }
+
 }
 `
 
@@ -90,23 +118,31 @@ position: absolute;
 top:0;
 right: 0;
 margin: 2rem;
+
+cursor: pointer;
 > svg{
+    
     transition:140ms;
+    &:active{
+    scale: 0.9;
 }
 
 &.active{
-   svg{
+    animation: pulse 104ms ease-in;
     fill: white;
+
    }
-   animation: pulse 104ms ease-in;
+
+  
 }
+
 
 @keyframes pulse {
     0%{
         scale: 1;
     }
     50%{
-        scale: 1.2;
+        scale: 1.4;
     }
     100%{
         scale: 1;

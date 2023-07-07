@@ -2,20 +2,38 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 display: flex;
+flex-direction: column;
+> div{
+
+display: flex;
 gap: 10px;
 align-items: center;
-
-span{
-font-size: clamp(1.6rem, 0.3rem + 1vw, 4.3rem);
-font-weight: 600;
-font-family: 'Poppins', sans-serif;
-}
 
 svg{
     width: clamp(2.5rem, 0.3rem + 1vw, 6rem);
     height: clamp(2.5rem, 0.3rem + 1vw, 6rem);
     animation: 900ms backwards 140ms  ease-in-out;
     animation-name: ${({ isAnimated}) => isAnimated ? 'rotate' : ''};
+}
+
+span{
+
+position: relative;
+font-size: clamp(1.6rem, 0.3rem + 1vw, 4.3rem);
+font-weight: 600;
+font-family: 'Poppins', sans-serif;
+
+}
+
+
+}
+
+> span{
+color:#82F3FF;
+font-weight: 300;
+font-size: 1.2rem;
+text-align: right;
+display: block;
 }
 
 @keyframes rotate {

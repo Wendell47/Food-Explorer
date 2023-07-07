@@ -5,7 +5,6 @@ export const Container = styled.div`
 position: absolute;
 left: 0;
 right: 0;
-  : 0;
 top: 0;
 z-index: 3;
 width: 100%;
@@ -32,6 +31,7 @@ background: var(--bg-color-900);
     margin-left: 15px;
    }
 `
+
 export const MobileHeader = styled.div`
    background:var(--bg-color-800);
    height: clamp(70px, 10vw, 100px);

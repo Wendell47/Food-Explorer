@@ -1,12 +1,15 @@
+/* eslint-disable react/prop-types */
 import { Container, MobileHeader} from "./styles";
 import Input from "../Input";
 import { FiSearch, FiX  } from "react-icons/fi";
-import { PiReceipt } from "react-icons/pi";
+
 import Button from "../button";
 import ContainerContent from "../ContainerContent";
 
-export default function MenuMobile({ hide,...rest }){
+import { useAuth } from "../../hooks/auth";
 
+export default function MenuMobile({ hide,...rest }){
+    const {signOut} = useAuth()
 
 
     return(
@@ -29,6 +32,7 @@ export default function MenuMobile({ hide,...rest }){
             <Button
                 title="Sair"
                 btn="transparent"
+                onClick ={signOut}
                 ></Button>
 
             </ContainerContent>

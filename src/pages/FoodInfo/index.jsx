@@ -4,96 +4,140 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/button"
 import {FiPlus, FiMinus, FiChevronLeft} from "react-icons/fi"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Section from "../../components/Section";
 import img from "../../assets/Mask-group-1.png"
 import Tags from "../../components/Tags";
+import { useNavigate, useParams } from "react-router-dom";
+import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
+import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
 
 export default function FoodInfo(){
-    const [count, setCount] = useState(0)
-    const [price, setPrice] = useState(0)
+    const{user} = useAuth()
 
-    let value = 25.97
-    
-    Number(value).toFixed(4).replace(".",",")
-    
+    const [count, setCount] = useState(0)
+    const[totalPrice, setTotalPrice] = useState(0)
+    const[data, setData] = useState(null)
+
+    const navigate = useNavigate ()
+    const params = useParams()
+
+    const imageURl = data && `${api.defaults.baseURL}/files/${data.Image}`;
+    const price = data && Number(data.price)
+
+    useEffect(() =>{
+        async function fetchProduct(){
+            const response =  await api.get(`/products/${params.id}`)
+            setData(response.data)
+        }
+        fetchProduct()
+    },[])
+        
+
+    function handleBack(){
+
+        navigate ("/")
+    }
     function HandleCountAdd(){
         
         setCount(count + 1)
         
-        setPrice(price + parseFloat(value).toFixed(2).replace(".",","))
+        const total = totalPrice + price
+
+        setTotalPrice(total)
     }
+
     function HandleCountRemove(){
-        setPrice(price -  Number(value))
+        
+        const total = totalPrice == 0 ? 0 : totalPrice - price
+
+        setTotalPrice(total)
+
         count == 0 ? 0 : setCount(count - 1)
     }
+    function handleEditDish(id){
+        navigate(`/editDish/${id}`)
+    }
+
     return(
         <Container>
             <Header/>
-            <Content>
+            {
+                data && 
+                <Content>
                 <ContainerContent>
                         <Button
                         title="voltar"
                         btn="transparent"
                         icon={FiChevronLeft}
+                        onClick = {handleBack}
                         />
                 
 
                     <FoodContent>
                         <div>
-                            <img src={img} alt="" />
+                            <img src={data.Image ? imageURl : imgPlaceHolder} alt="" />
                         </div>
                         <div>
                         <Section
-                    title="Salada Ravanello"
+                    title={data.title}
                     >
-                        <p>Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O pão naan dá um toque especial.</p>
+                        <p>{data.description}</p>
+                      {
+                        data.tags &&
+
                         <ContentTags>
-                            <Tags
-                            title="Food"
-                            />
-                             <Tags
-                            title="cebola"
-                            />
-                             <Tags
-                            title="pão naan"
-                            />
-                             <Tags
-                            title="pepino"
-                            />
-                             <Tags
-                            title="rabanete"
-                            />
-                             <Tags
-                            title="tomate"
-                            />
-                        </ContentTags>
+                            {
+                                data.tags.map(tags => (
+                                    <Tags
+                                    key={String(tags.id)}
+                                    title={tags.name}
+                                    />
+                                ))
+                            }
+                    </ContentTags>
+                      }
                         </Section>
                         <Section>
                         <AddToCard>
-                                <div>
-                                    
-                                <Stepper>
-                                    <Button
-                                    icon={FiMinus}
-                                    btn="transparent"
-                                    onClick={HandleCountRemove}
-                                    />
-                                    <span>{count}</span>
-                                    <Button
-                                    icon={FiPlus}
-                                    btn="transparent"
-                                    onClick={HandleCountAdd}
-                                    />
-                                </Stepper>
-                                </div>
-                                <div>
-                                    <Button
-                                    title={`incluir • R$ ${price}`}
-                                    btn="primary"
-                                    />
-                                </div>
-                            </AddToCard>
+                            {
+                                user.isAdmin ?
+
+                                <Button
+                                title="Editar Prato"
+                                btn="primary"
+                                onClick={() => handleEditDish(data.id)}
+                                />
+
+                                :  
+                                
+                        <>                     
+                            <div>
+                                
+                            <Stepper>
+                                <Button
+                                icon={FiMinus}
+                                btn="transparent"
+                                onClick={HandleCountRemove}
+                                />
+                                <span>{count}</span>
+                                <Button
+                                icon={FiPlus}
+                                btn="transparent"
+                                onClick={HandleCountAdd}
+                                />
+                            </Stepper>
+                            </div>
+                            <div>
+                                <Button
+                                title={`incluir • R$ ${Number(totalPrice).toFixed(2).replace('.',',')}`}
+                                btn="primary"
+                                />
+                            </div>
+                         </>
+                      }
+                       </AddToCard>
                         </Section>
                        
                         </div>
@@ -104,6 +148,7 @@ export default function FoodInfo(){
                 
             </Content>
             
+            }
         </Container>
 
     )

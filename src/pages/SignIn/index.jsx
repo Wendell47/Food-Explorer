@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ContainerContent from "../../components/ContainerContent";
 import { Container, Content } from "./styles";
 import Input from "../../components/Input";
@@ -5,7 +6,17 @@ import Logo from "../../components/Logo";
 import Button from "../../components/button";
 import { Link } from "react-router-dom";
 import {FiMail, FiKey} from 'react-icons/fi'
+import {useAuth} from '../../hooks/auth'
+
 export default function SignIn(){
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const {signIn} = useAuth()
+    function handleSignIn(){
+        event.preventDefault()
+        signIn({email, password})
+    }
 
     return(
         <Container>
@@ -26,14 +37,20 @@ export default function SignIn(){
                  title="Email"
                  icon={FiMail}
                  placeholder="Exemplo: exemplo@exemplo.com.br"
+                 onChange ={e => setEmail(e.target.value)}
                  />
                  <Input 
                  title="Senha" 
                  icon={FiKey}
                  type="password"
                  placeholder="No mínimo 6 caracteres"
+                 onChange ={e => setPassword(e.target.value)}
                  />
-                 <Button title="Entrar" btn="primary"/>
+                 <Button 
+                 title="Entrar" 
+                 btn="primary"
+                 onClick = {handleSignIn}
+                 />
                 <Link to="/signUp"> 
                 <Button title="Criar uma conta" btn="transparent"/></Link>
                  </form>
