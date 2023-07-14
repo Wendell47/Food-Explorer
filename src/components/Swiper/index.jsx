@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import ProductCard from "../ProductCard";
 import { Container,GradientSide } from "./styles";
 // import required modules
 import { Navigation, Autoplay} from "swiper";
@@ -11,7 +11,7 @@ import { Navigation, Autoplay} from "swiper";
 
 
 
-export default function MySwiper ({children}) {
+export default function MySwiper ({minCards,children}) {
     let MinWidth = window.screen.width;
     
 
@@ -20,15 +20,15 @@ export default function MySwiper ({children}) {
       <Swiper
         modules={[Navigation, Autoplay]}
         navigation={MinWidth <= 600 ? false : true}
-        autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter:true
-          }}
-        centeredSlides = {MinWidth <= 800 ? true: false}
+        autoplay={!minCards ?? {
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter:true
+        }}
+        centeredSlides = {minCards || MinWidth <= 800 ? true: false}
         slidesPerView={1}
         spaceBetween={10}
-        loop={true}
+        loop={!minCards}
         breakpoints={{
           "@0.00": {
             slidesPerView: 1,
@@ -44,7 +44,7 @@ export default function MySwiper ({children}) {
             spaceBetween: 40,
           },
           "@1.50": {
-            slidesPerView: 4,
+            slidesPerView: minCards ? 3 : 4,
             spaceBetween: 20,
           },
         }}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-
+position: relative;
 display: flex;
 flex-direction: column;
 gap: .8rem;
@@ -17,20 +17,21 @@ label{
     }
 }
 
-div{
+> div:nth-child(2){
+    
     border-radius: .5rem;
     display: flex;
     gap: 10px;
     background: var(--bg-color-700);
     width: 100%;
     padding: 16px 12px;
-    
+
     
         &:hover{
         outline: 1px solid white;
     }
 
-    
+  
 > input{
     background: transparent;
     border: none;
@@ -56,7 +57,7 @@ textArea{
     border: none;
     width: 100%;
     height: 100%;
-
+    
     color:var(--color-white);
     
     &:focus-visible{

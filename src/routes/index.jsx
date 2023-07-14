@@ -2,12 +2,11 @@ import { BrowserRouter } from "react-router-dom";
 import AuthRoutes from "./auth.routes";
 import AppRoutes from "./app.routes";
 import AdminRoutes from "./admin.routes";
-import { api } from "../services/api";
 import { useAuth } from "../hooks/auth";
-import { useEffect, useState } from "react";
+
 
 export default function Routes(){
-    const{user, admin} = useAuth()
+    const{user} = useAuth()
 
 
     const isAdmin = user && user.isAdmin

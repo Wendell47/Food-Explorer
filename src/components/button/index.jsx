@@ -28,7 +28,7 @@ export default function Button({title,icon: Icon, children, btn,...rest}){
 
         {...rest}
         >
-         {Icon && <Icon size={28}/>}         
+         {Icon && <Icon size={25}/>}         
           {title}
           {children}
         </Container>

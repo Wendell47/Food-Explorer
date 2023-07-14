@@ -29,8 +29,11 @@ export const Content = styled.div`
         display: flex;
         flex-direction: column;
         gap: 3rem;
-      
-
+       
+        a {
+            display: flex;
+            justify-content: center;
+        }
     }
    > div:nth-child(2){
     padding: 6.4rem;

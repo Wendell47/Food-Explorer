@@ -3,6 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
 display: flex;
 flex-direction: column;
+
+@media (max-width:600px){
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+cursor: pointer;
 > div{
 
 display: flex;
@@ -17,9 +25,9 @@ svg{
 }
 
 span{
-
+line-height: 100%;
 position: relative;
-font-size: clamp(1.6rem, 0.3rem + 1vw, 4.3rem);
+font-size: clamp(1.6rem, 1vw, 4.3rem);
 font-weight: 600;
 font-family: 'Poppins', sans-serif;
 

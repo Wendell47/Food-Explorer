@@ -49,7 +49,9 @@ h1,h2,h3,h4{
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
-
+span{
+    font-family: "Roboto", sans-serif;
+}
 a{
     text-decoration: none;
     color:inherit;

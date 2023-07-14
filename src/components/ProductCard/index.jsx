@@ -3,26 +3,62 @@ import { Container, AddToCard, Stepper, ProductFavIcon} from "./styles"
 import Button from "../button"
 import {FiPlus, FiMinus, FiHeart, FiArrowUpRight, FiEdit}from"react-icons/fi"
 import { useState } from "react"
-import {  useNavigate } from "react-router-dom"
-import { useAuth } from "../../hooks/auth"
+import { useNavigate } from "react-router-dom"
+import { useAuth} from "../../hooks/auth"
+import { api } from "../../services/api"
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
-export default function ProductCard({ data, imageURL,...rest}){
+import { useEffect } from "react"
+
+export default function ProductCard({favorited, data, imageURL}){
     const {user} = useAuth()
+
+    const authAdmin = user && user.isAdmin
     const navigate = useNavigate ()
     const [count, setCount] = useState(0)
-    const [activeButton, setActiveButton] = useState("")
+    const [favId, setFavID] = useState([])
+    const [favoriteDishes, setFavoriteDishes] = useState([])
 
-    function HandleClick(){
+    useEffect(()=>{
+
+        async function fetchFavoriteDishes(){
+            const {data} = await api.get(`/favoriteDishes`)
+            setFavoriteDishes(data)
+        }
+        fetchFavoriteDishes()
+    
         
-        if(activeButton == "active"){
-            setActiveButton("")
+    },[])
+    
+    console.log(favorited)
+
+    async function HandleClick(favorited){
+        
+        if(favorited <= 1){
+            await api.post(`/favoriteDishes/${favorited}`)
+            .then(alert("Prato adicionado como favorito"))
+            .catch((error) => {
+                if (error.response) {
+                  alert(error.response.data.message);
+                } else {
+                  alert("Erro ao editar Prato");
+                }
+              });
         }
         else{
-            setActiveButton("active")
+            const isConfirm = confirm("tirar como favorito ?")
+
+            if(isConfirm){
+             
+                await api.delete(`/favoriteDishes/${favorited}`)
+                .then(alert("você tirou o prato como favorito"))
+             }
         }
-            
+
     }
     
+    
+
+  
     function HandleCountAdd(){
         
         setCount(count + 1)
@@ -39,30 +75,33 @@ export default function ProductCard({ data, imageURL,...rest}){
 
         navigate(`/FoodInfo/${id}`)
     }
-
+ 
     return(
         
         <Container>
+           
+           
+            <ProductFavIcon>
            {
-            user.isAdmin ?
-            <ProductFavIcon 
+            authAdmin ?
+            <div
             id="btnEdit" 
             onClick={() => handleEditDish(data.id)}
+           >
+           <FiEdit />
+           </div>
+           :''
+           }
+            <div
+            id="btnFavorite" 
+            onClick={() => HandleClick(data.id)}
             >
-            <FiEdit className={activeButton}/>
+            <FiHeart className={favorited <= 1 ? "" : 'active'}/>
+            </div>
+
             </ProductFavIcon>
             
-            :
-
-            <ProductFavIcon 
-            id="btnFavorite" 
-            onClick={HandleClick}
-            >
-            <FiHeart className={activeButton}/>
-            </ProductFavIcon>
-
-           }
-
+           
             <img 
             src={data.Image ? imageURL : imgPlaceHolder} 
             alt={data.image && data.description} 

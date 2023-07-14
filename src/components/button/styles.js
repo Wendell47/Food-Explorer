@@ -11,6 +11,7 @@ color: var(--color-white);
 font-weight: 400;
 padding: 12px 32px;
 display: flex;
+position: relative;
 align-items: center;
 justify-content: center;
 gap: 10px;
@@ -20,7 +21,7 @@ gap: 10px;
 }
 
 &.btnSecondary{
-    background: #AB4D55;
+    background: var(--color-tomato-400);
 }
 
 &.btnDark{

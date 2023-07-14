@@ -109,6 +109,9 @@ button{
 
 export const ProductFavIcon = styled.div`
 
+display: flex;
+flex-direction: column;
+gap: 1rem;
 padding: 5px;
 color: white;
 transition: 140ms;
@@ -119,9 +122,9 @@ top:0;
 right: 0;
 margin: 2rem;
 
-cursor: pointer;
+#btnFavorite, #btnEdit {
+    cursor: pointer;
 > svg{
-    
     transition:140ms;
     &:active{
     scale: 0.9;
@@ -134,6 +137,8 @@ cursor: pointer;
    }
 
   
+}
+
 }
 
 

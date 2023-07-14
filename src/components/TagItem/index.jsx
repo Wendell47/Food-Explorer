@@ -1,21 +1,21 @@
+/* eslint-disable react/prop-types */
 import { FiPlus, FiX} from 'react-icons/fi'
 import { Container } from './styles'
-import { useState } from 'react'
 
 
-export function TagItem({isNew, value, onClick,  ...rest}){
 
-    const [newTag, setNewTag] = useState("fd")
-    
+export function TagItem({isNew, value, onClick, animation, ...rest}){
+
+       
  
     return(
-        <Container isNew={isNew}>
+        <Container isNew={isNew} className={animation}>
     
         <input
         type='text'
         id='AddTag'
         readOnly={!isNew}
-        placeholder={isNew ? "Adicionar" : newTag}
+        placeholder={isNew && "Adicionar"}
         {...rest}
         value={value}
         />

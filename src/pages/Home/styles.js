@@ -15,6 +15,14 @@ grid-template-areas:
 "content"
 
 ;
+
+.container + .container{
+    margin-top: 5rem;
+}
+.container:last-child{
+    margin-bottom: 5rem;
+}
+
 `
 
 export const Content = styled.div`

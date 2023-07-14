@@ -46,8 +46,12 @@ justify-content: space-between;
 
     
     .product-img{
-        flex:1 0 auto;
+        flex:1 0 30%;
         
+        ::-ms-value{
+            text-overflow: ellipsis;
+            font-size: 30px;
+        }
     }
     .product-name{
         flex: 3 0 auto;
@@ -93,6 +97,7 @@ justify-content: space-between;
         flex:1 0 auto;
         
          textArea {
+            resize: none;
             height: 200px;
          }
     }
@@ -106,6 +111,16 @@ justify-content: space-between;
         }
     }
 
+    > div:last-child{
+        display: flex;
+        justify-content: end;
+        gap: 3rem;
+        width: 100%;
+        
+      @media (max-width:600px){
+       flex-direction: column;
+      }
+    }
     > button{
     width: max-content;
   

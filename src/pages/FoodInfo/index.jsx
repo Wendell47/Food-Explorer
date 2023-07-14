@@ -6,7 +6,6 @@ import Button from "../../components/button"
 import {FiPlus, FiMinus, FiChevronLeft} from "react-icons/fi"
 import { useState, useEffect } from "react"
 import Section from "../../components/Section";
-import img from "../../assets/Mask-group-1.png"
 import Tags from "../../components/Tags";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";

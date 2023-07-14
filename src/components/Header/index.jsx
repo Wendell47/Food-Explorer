@@ -1,17 +1,18 @@
-import { Container, Content, ButtonExit, Badge} from "./styles";
+import { Container, Content, Badge} from "./styles";
 import ContainerContent from "../ContainerContent";
 import Logo from "../Logo";
 import Input from "../Input";
-import {FiSearch, FiLogOut, FiMenu} from "react-icons/fi"
+import {FiSearch, FiLogOut, FiMenu, FiArrowLeft} from "react-icons/fi"
 import Button from "../button";
-import {PiReceipt, PiArrowBendUpLeft} from "react-icons/pi"
+import {PiReceipt} from "react-icons/pi"
+import {LuSalad} from "react-icons/lu"
 import MenuMobile from "../menuMobile";
 import { useState,  } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 
-export default function Header({isAdmin, onChange}){
+// eslint-disable-next-line react/prop-types
+export default function Header({onChange}){
 
     const {user, signOut} = useAuth()
 
@@ -34,6 +35,12 @@ export default function Header({isAdmin, onChange}){
     function handleCreateProduct(){
         navigate('/CreateNewProduct')
     }
+    function handleFavoriteDishes(){
+        navigate('/FavoriteDishes')
+    }
+    function handleCart(){
+        navigate("/Pedidos")
+    }
 
     return(
         <Container>
@@ -48,7 +55,46 @@ export default function Header({isAdmin, onChange}){
                     <MenuMobile 
                     className={MenuMobileOn ? "" : "hide"}
                     hide={handleMenuMobile}
-                    />
+                    >
+                         <Input
+                        icon={FiSearch}
+                        placeholder="Busque por pratos ou ingredientes"
+                        />
+
+                        <Button
+                        title="Meus Favoritos"
+                        btn="transparent"
+                        onClick={handleFavoriteDishes}
+                        />
+
+                        <Button
+                        title="Histórico de pedidos"
+                        btn="transparent"
+                        onClick={handleFavoriteDishes}
+                        />
+                    {
+                        user && user.isAdmin ?
+
+                        <Button
+                        
+                        title="Novo Prato"
+                        icon={LuSalad}
+                        btn="transparent"
+                        onClick={handleCreateProduct}
+                        />
+                        :
+                        ''
+             
+                    }
+                    <Button
+                        title="Sair"
+                        icon={FiArrowLeft}
+                        btn="transparent"
+                        onClick ={signOut}
+                        ></Button>
+
+
+                    </MenuMobile>
                 <Logo isAdmin={authAdmin}/>
                 <Input
                 
@@ -57,22 +103,32 @@ export default function Header({isAdmin, onChange}){
                 placeholder="Busque por pratos ou ingredientes"
                 onChange = {onChange}
                 />
+
+                <Button
+                title="Meus Favoritos"
+                btn="transparent"
+                onClick={handleFavoriteDishes}
+                
+                />
                 {
-                    user && authAdmin ? 
+                    authAdmin ? 
                     <Button
                 
-                title={window.screen.width <= 900 ? "" : "Novo Prato"}
-                btn={window.screen.width <= 900 ? "transparent" : "primary"}
+                title="Novo Prato"
+                btn="transparent"
+                id="newPlate"
                 onClick={handleCreateProduct}
                 >
                
                 </Button>
-                    :
+                : ''
+                }
                     <Button
                 
                 title={window.screen.width <= 900 ? "" : "Pedidos"}
                 icon={PiReceipt}
                 btn={window.screen.width <= 900 ? "transparent" : "primary"}
+                onClick={handleCart}
                 >
                  <Badge className="bagdeFloat">
                     <span>
@@ -80,7 +136,7 @@ export default function Header({isAdmin, onChange}){
                     </span>
                     </Badge> 
                 </Button>
-                }
+                
                 <Button
                 icon={FiLogOut}
                 btn="transparent"

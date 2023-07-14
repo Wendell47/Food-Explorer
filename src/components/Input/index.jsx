@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useRef } from 'react';
-import { IMaskInput } from 'react-imask';
+
 
 import { Container, UploadButton } from "./styles";
 import {FiUpload} from "react-icons/fi"
-export default function Input({title, TextArea = false, isUploadButton = false, icon: Icon, onChange,value, price,...rest}){
+export default function Input({title, TextArea = false, isUploadButton = false, icon: Icon, onChange,value, children, price,...rest}){
 
   let displayHidden = ""
 
@@ -33,6 +32,7 @@ return(
           />
          </div>
         </UploadButton>
+        {children}
     </Container>
 
     :
@@ -43,7 +43,9 @@ return(
       >
         {title}
       </label>
-      <div>
+      <div
+
+      >
         {Icon && <Icon size={20}/>}
         {price && <span>R$</span>}
         {TextArea ? 
@@ -55,7 +57,7 @@ return(
         : 
         <input 
         onChange = {onChange}
-        value={value} 
+        value={value}
         {...rest}
         /> 
         } 

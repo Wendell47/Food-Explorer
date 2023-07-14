@@ -9,11 +9,13 @@ top: 0;
 z-index: 3;
 width: 100%;
 height: 100%;
-
+display: grid;
+grid-template-rows: auto 1fr auto;
 transition: 200ms ease-in;
 opacity: 1;
 
 background: var(--bg-color-900);
+
 
 
 > div:nth-child(2) {
@@ -26,10 +28,20 @@ background: var(--bg-color-900);
     visibility: hidden;
    }
 
-
-    button:nth-child(2){
-    margin-left: 15px;
+> div{
+    > div:nth-child(1){
+       > div{
+        margin-bottom: 3rem;
+       }
+    }
+    > button:nth-last-child(-n+4){
+    width: 100%;
+    justify-content: start;
+    border-radius: 0;
+    border-bottom: 1px solid #192227;
    }
+}
+    
 `
 
 export const MobileHeader = styled.div`

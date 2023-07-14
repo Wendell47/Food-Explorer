@@ -1,13 +1,18 @@
-import { useAuth } from "../../hooks/auth";
+/* eslint-disable react/prop-types */
 import { Container } from "./styles";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Logo({isAnimated=false , isAdmin}){
-    const {user} = useAuth()
+    const navigate = useNavigate()
 
+
+    function handleStart(){
+        navigate("/")
+    }
     return(
         <Container
         isAnimated={isAnimated}
+        onClick={handleStart}
         >
            <div>
              

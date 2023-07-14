@@ -13,14 +13,10 @@ export const Content = styled.div`
 height: 100%;
 display: flex;
 justify-content:space-between;
-gap:2rem;
+gap:5rem;
 align-items: center;
 
-> button:nth-child(5){
-    position:relative;
-    width: 200px;
-    
-}
+
 
 > div:nth-child(4){
     flex: 1 0 auto;  
@@ -39,7 +35,17 @@ align-items: center;
 > div:nth-child(4){
     display: none;
 }
+> button:nth-child(5){
+    display: none;
+}
+> button:nth-child(){
+    display: none;
+}
 > button:last-child{
+    display: none;
+}
+
+#newPlate{
     display: none;
 }
 }
