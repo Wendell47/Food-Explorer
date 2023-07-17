@@ -46,11 +46,15 @@ export const Content = styled.div`
    @media (max-width:869px){
     > div:nth-child(1){
         margin: 0 auto;
+        svg{
+            width: 3rem;
+        }
         span{
-            font-size: 4.5rem;
+            font-size: 2.5rem;
         }
        
     }
+    
     h1{
         display: none;
     }
@@ -61,4 +65,17 @@ export const Content = styled.div`
     }
    }
 
+@media (min-width:900px) {
+    > div:nth-child(1){
+       
+        svg{
+            width: 5rem;
+            height: 5rem;
+        }
+        span{
+            font-size: 3.5rem;
+        }
+       
+    }
+}
 `

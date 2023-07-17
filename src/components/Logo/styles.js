@@ -7,19 +7,19 @@ flex-direction: column;
 @media (max-width:600px){
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    gap: .8rem;
 }
 
 cursor: pointer;
 > div{
 
 display: flex;
-gap: 10px;
+gap: .8rem;
 align-items: center;
 
 svg{
-    width: clamp(2.5rem, 0.3rem + 1vw, 6rem);
-    height: clamp(2.5rem, 0.3rem + 1vw, 6rem);
+    width: clamp(1.8rem, 0.3rem + 1vw, 6rem);
+    height: clamp(1.8rem, 0.3rem + 1vw, 6rem);
     animation: 900ms backwards 140ms  ease-in-out;
     animation-name: ${({ isAnimated}) => isAnimated ? 'rotate' : ''};
 }
@@ -27,7 +27,7 @@ svg{
 span{
 line-height: 100%;
 position: relative;
-font-size: clamp(1.6rem, 1vw, 4.3rem);
+font-size: clamp(1.4rem, 1vw, 4.3rem);
 font-weight: 600;
 font-family: 'Poppins', sans-serif;
 
@@ -39,7 +39,7 @@ font-family: 'Poppins', sans-serif;
 > span{
 color:#82F3FF;
 font-weight: 300;
-font-size: 1.2rem;
+font-size: 1.1rem;
 text-align: right;
 display: block;
 }

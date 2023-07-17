@@ -22,12 +22,12 @@ justify-content: space-between;
 }
 
 > span{
-    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    font-size: clamp(1rem, 3vw, 1.4rem);
     color:var(--color-gray-400)
 }
 
-@media (max-width:390px){
+@media (max-width:320px){
     justify-content: center;
-  gap: 2rem;
+  gap: .8rem;
 }
 `
