@@ -10,9 +10,8 @@ import ProductCard from "../../components/ProductCard";
 import ContainerDishesNull from "../../components/ContainerDishesNull";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
 import imagePlaceholder from "../../assets/image-3.png"
-
+import { ToastContainer } from "react-toastify";
 export default function Home(){
 
 const [products, setProducts] = useState([])
@@ -30,13 +29,13 @@ useEffect(() =>{
         
      }
      fetchFavoriteDishes()
-},[])
+},[favoriteDishes])
 
 useEffect(()=>{
     
     async function fetchProducts(){
 
-        const response = await api.get(`/products?title=${search}&tags=${search}`)
+        const response = await api.get(`/products?title=${search}&tags=`)
         setProducts(response.data)
     }
     fetchProducts()
@@ -58,7 +57,7 @@ fetchCategories()
     return(
         <Container>
             <Header 
-         
+
             onChange ={e => setSearch(e.target.value)}/>
             <Content>
                 <ContainerContent>
@@ -76,7 +75,7 @@ fetchCategories()
                              
                             centeredDishesCard = true
 
-                            console.log(centeredDishesCard)
+                
                         }
                         
                        return (
@@ -107,15 +106,10 @@ fetchCategories()
                             const imageURL = product.Image
                             ? `${api.defaults.baseURL}/files/${product.Image}`
                             : imagePlaceholder
-                            let idFavorite
-                            favoriteDishes.map(fav =>(
-                                idFavorite = fav.id
-                              )
-                                
-                              ) 
-                          //const id = favoriteDishes.filter(fav => fav.product_id === product.id)
-                     
-                            console.log(product)
+
+                            const idFavorite = favoriteDishes.filter(fav => fav.product_id === product.id)
+                          
+
                            return(( 
                            <SwiperSlide 
                            key={String(product.id)}
@@ -123,11 +117,7 @@ fetchCategories()
                             <ProductCard
                             data={product}
                             imageURL= {imageURL}
-                            favorited={  favoriteDishes.map(fav =>(
-                                idFavorite = fav.id
-                              )
-                                
-                              ) }
+                            favorited={idFavorite}
                             />
                             </SwiperSlide>
                             ))}
@@ -144,7 +134,7 @@ fetchCategories()
 
                 <Footer/>
             </Content>
-            
+            <ToastContainer/>
         </Container>
 
     )

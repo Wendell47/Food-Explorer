@@ -10,12 +10,14 @@ import MenuMobile from "../menuMobile";
 import { useState,  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
+import { useEffect } from "react";
+import { api } from "../../services/api";
 
 // eslint-disable-next-line react/prop-types
-export default function Header({onChange}){
+export default function Header({onChange, item = []}){
 
     const {user, signOut} = useAuth()
-
+    const [cartItem, setCartItems] = useState([])
     const authAdmin = user && user.isAdmin
 
     const navigate = useNavigate()
@@ -41,6 +43,7 @@ export default function Header({onChange}){
     function handleCart(){
         navigate("/Pedidos")
     }
+
 
     return(
         <Container>
@@ -132,7 +135,7 @@ export default function Header({onChange}){
                 >
                  <Badge className="bagdeFloat">
                     <span>
-                        2
+                        {item.length}
                     </span>
                     </Badge> 
                 </Button>

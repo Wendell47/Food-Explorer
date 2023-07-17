@@ -2,7 +2,7 @@
 import { Container } from "./styles";
 
 
-export default function Button({title,icon: Icon, children, btn,...rest}){
+export default function Button({title,icon: Icon, children, btn, className,...rest}){
 
  if(btn == "primary"){
     btn = 'btnPrimary'
@@ -24,8 +24,7 @@ export default function Button({title,icon: Icon, children, btn,...rest}){
       
         <Container
         
-        className={btn}
-
+        className={btn && className ? className : btn}
         {...rest}
         >
          {Icon && <Icon size={25}/>}         

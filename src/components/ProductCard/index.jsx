@@ -8,34 +8,29 @@ import { useAuth} from "../../hooks/auth"
 import { api } from "../../services/api"
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
 import { useEffect } from "react"
-
+import { toast } from "react-toastify"
 export default function ProductCard({favorited, data, imageURL}){
     const {user} = useAuth()
 
     const authAdmin = user && user.isAdmin
     const navigate = useNavigate ()
     const [count, setCount] = useState(0)
-    const [favId, setFavID] = useState([])
-    const [favoriteDishes, setFavoriteDishes] = useState([])
+  
+        const dishId = favorited.map(dish =>{
 
-    useEffect(()=>{
+            if(dish.product_id === data.id){
+                return dish.id
+            }
+         
+})
 
-        async function fetchFavoriteDishes(){
-            const {data} = await api.get(`/favoriteDishes`)
-            setFavoriteDishes(data)
-        }
-        fetchFavoriteDishes()
+
     
+    async function HandleClick(){
         
-    },[])
-    
-    console.log(favorited)
-
-    async function HandleClick(favorited){
-        
-        if(favorited <= 1){
-            await api.post(`/favoriteDishes/${favorited}`)
-            .then(alert("Prato adicionado como favorito"))
+        if(dishId <= 1){
+            await api.post(`/favoriteDishes/${data.id}`)
+            .then(toast("Prato adicionado como favorito"))
             .catch((error) => {
                 if (error.response) {
                   alert(error.response.data.message);
@@ -48,9 +43,8 @@ export default function ProductCard({favorited, data, imageURL}){
             const isConfirm = confirm("tirar como favorito ?")
 
             if(isConfirm){
-             
-                await api.delete(`/favoriteDishes/${favorited}`)
-                .then(alert("você tirou o prato como favorito"))
+                await api.delete(`/favoriteDishes/${dishId}`)
+                .then(toast("você tirou o prato como favorito"))
              }
         }
 
@@ -75,7 +69,28 @@ export default function ProductCard({favorited, data, imageURL}){
 
         navigate(`/FoodInfo/${id}`)
     }
- 
+    
+    async function handleAddItensToCart(){
+        if(!count){
+            return toast("insira uma quantidade para adicionar ao carinho")
+        }
+        const cartItem = {
+            title: data.title,
+            quantity: count,
+            price: data.price,
+            product_id: data.id
+        }
+        await api.post("/cart", cartItem)
+        .then(toast("Adicionado com Sucesso !"))
+        .catch((error) => {
+          if (error.response) {
+            alert(error.response.data.message);
+          } else {
+            toast("Erro ao cadastrar Prato");
+          }
+        });
+
+    }
     return(
         
         <Container>
@@ -96,7 +111,7 @@ export default function ProductCard({favorited, data, imageURL}){
             id="btnFavorite" 
             onClick={() => HandleClick(data.id)}
             >
-            <FiHeart className={favorited <= 1 ? "" : 'active'}/>
+            <FiHeart className={dishId.length >= 1 ? "active" : ''}/>
             </div>
 
             </ProductFavIcon>
@@ -148,6 +163,7 @@ export default function ProductCard({favorited, data, imageURL}){
                 <Button
                 title="incluir"
                 btn="primary"
+                onClick={handleAddItensToCart}
                 />
 
                 <Button

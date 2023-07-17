@@ -43,7 +43,7 @@ useEffect(()=>{
 
 
 
-
+console.log(favoriteDishes)
 async function handleRemoveFavorite(id){
     const isConfirm = confirm("Tem certeza que deseja remover?")
 
@@ -95,9 +95,11 @@ function handleDishDetails(id){
                             return(
                             <FavCard
                             key={String(favDish.id)}
-                            onClick={() => handleDishDetails(favDish.product_id)}
+                            
                             >
-                            <img src={imageURL} alt="" />
+                            <img src={imageURL} alt="" 
+                            onClick={() => handleDishDetails(favDish.product_id)}
+                            />
     
                             <div>
                                 <h4>

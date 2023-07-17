@@ -17,13 +17,12 @@ import CreditCard from "../../components/CreditCard";
 export default function CartDishes(){
     const navigate = useNavigate ()
 const [products, setProducts] = useState([])
-const [favoriteDishes, setFavoriteDishes] = useState([])
+const [cartItem, setCartItems] = useState([])
 const [search, setSearch] = useState("")
-const [image, setImage] = useState([])
-const params = useParams()
-const [showPix, setShowPix] = useState("")
-const [showCreditCard, setShowCreditCard] = useState("hide")
-
+const [update,setUpdated] = useState(0)
+const [showPix, setShowPix] = useState(true)
+const [showCreditCard, setShowCreditCard] = useState(false)
+//const [total, setTotal] = useState(0)
 
 useEffect(()=>{
     
@@ -36,29 +35,21 @@ useEffect(()=>{
     
 },[search])
 
-
-useEffect(()=>{
-
-    async function fetchFavoriteDishes(){
-        const {data} = await api.get(`/favoriteDishes`)
-        setFavoriteDishes(data)
+useEffect(() => {
+    async function fetchCartItems(){
+        const {data} = await api.get("/cart")
+        setCartItems(data)
     }
-    fetchFavoriteDishes()
+    fetchCartItems()
+},[update])
 
+console.log(update)
+
+async function handleRemoveItem(id){
+  
+    await api.delete(`/cart/${id}`)
     
-},[favoriteDishes])
-
-
-
-
-async function handleRemoveFavorite(id){
-    const isConfirm = confirm("Tem certeza que deseja remover?")
-
-    if(isConfirm) {
-    
-    await api.delete(`/favoriteDishes/${id}`)
-
-}
+    setUpdated(cartItem)
 }
 
 function handleDishDetails(id){
@@ -68,64 +59,82 @@ function handleDishDetails(id){
 
 function handlePaymentMethod(){
 
-    setShowPix("hide")
-    setShowCreditCard("")
+    setShowPix(false)
+    setShowCreditCard(true)
 }
 function handlePixMethod(){
 
-    setShowCreditCard("hide")
-    setShowPix("")
+    setShowCreditCard(false)
+    setShowPix(true)
 }
-
+let sum 
+let total = 0
     return(
         <Container>
             <Header 
-         
+            item={cartItem}
             onChange ={e => setSearch(e.target.value)}/>
             <Content
             
             >
                 <ContainerContent>
                
-               <div>
+               <div className="flexContainer">
                <Section
                 title="Meu Pedido"
                 >
                     <ContentCart>
-                        <ListCard>
-                            <img src={img} alt="" />
+                       {
+                        cartItem ? cartItem.map(cartItem =>{
+
+                            const filteredDishes = products.filter(dish => dish.id === cartItem.product_id)
+                            let imageURL 
+
+                            filteredDishes.map(dish =>(
+                                
+                                imageURL = `${api.defaults.baseURL}/files/${dish.Image}`
+
+
+                               ))
+                                sum =  Number(cartItem.price) 
+                                total = sum + total
+
+                                    
+                            return(
+                            <ListCard
+                            key={cartItem.id}
+                            >
+                            <img src={imageURL} alt="" 
+                            
+                            onClick={() => handleDishDetails(cartItem.product_id)}
+                            />
                             <div>
-                                <h4>1 x salada Radish <span>R$ 25,97</span></h4>
-                                <span>Excluir</span>
+                                <h4>{cartItem.quantity} x {cartItem.title} <span>R$ {Number(cartItem.price).toFixed(2).replace(".", ",")}</span></h4>
+                                <span
+                                onClick={() => handleRemoveItem(cartItem.id)}
+                                >Excluir</span>
                             </div>
                         </ListCard>
-                        <ListCard>
-                            <img src={img} alt="" />
-                            <div>
-                                <h4>title</h4>
-                                <span>Excluir</span>
-                            </div>
-                        </ListCard>
-                        <ListCard>
-                            <img src={img} alt="" />
-                            <div>
-                                <h4>title</h4>
-                                <span>Excluir</span>
-                            </div>
-                        </ListCard>
+                        )}
+                        )
+                        :
+                        <p>Não tem pratos adicionados nos pedidos ainda!</p>
+                       }
+                      
                     </ContentCart>
-                   <p>Total: R$ 40,00</p>
+                   <p>R$ {Number(total).toFixed(2).replace(".", ",")}</p>
                 </Section>
 
                 <Section
                 title="Pagamento"
                 >
-   <ContentCart>
+  
                        <Payment>
                        
                        <Button
                         btn="transparent"
                         title="Pix"
+                        className={showPix ? 'active' : ''}
                         icon={MdPix}
                         onClick ={handlePixMethod}
                         />
@@ -133,22 +142,22 @@ function handlePixMethod(){
                          <Button
                         btn="transparent"
                         title="Credit"
+                        className={showCreditCard ? 'active' : ''}
                         icon={AiFillCreditCard}
                         onClick ={handlePaymentMethod}
                         />
                      
                         <PaymentContent>
-                        <div className={showPix}>
+                        <div className={showPix ? '': "hide"}>
                         <img src={pixImage} alt=""/>
                         </div>
-                        <div className={showCreditCard}>
-                            <CreditCard
-                            
-                            />
+                        <div 
+                        className={showCreditCard ? '':"hide"}>
+                        <CreditCard/>
                         </div>
                         </PaymentContent>
                        </Payment>
-                    </ContentCart>  
+                 
                 </Section>
                </div>
               

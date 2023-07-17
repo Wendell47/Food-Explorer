@@ -34,7 +34,7 @@ justify-content: space-between;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    ;
+    margin-bottom: 5rem;
     fieldset{
         border: none;
         display: flex;

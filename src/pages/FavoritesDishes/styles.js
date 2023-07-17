@@ -43,11 +43,17 @@ padding:  2rem;
 display: flex;
 gap: 2rem;
 align-items: center;
-background: var(--bg-gradient-500);
-transition: 140ms;
-cursor: pointer;
+
+
+
 img {
+    cursor: pointer;
     width: 30%;
+    transition: 140ms;
+    &:hover{
+
+scale:1.03;
+}
 }
 h4{
     font-size: clamp(1.7rem, 3vw, 2rem);
@@ -61,10 +67,7 @@ transition: 140ms;
     opacity: 0.8;
 }
 }
-&:hover{
 
-    scale:1.03;
-}
 animation: show 140ms ease-in ;
 
 @keyframes show {

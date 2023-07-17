@@ -28,27 +28,30 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 
-> div{
-    >div{
+    .flexContainer{
         display: flex;
         gap: 3rem;
+        margin-bottom: 5rem;
         flex-wrap:wrap;
         justify-content: space-between;
+
         > div{
             flex: 1 0 44%;
         }
     }
-}
+
 `
 
 
 export const  ContentCart= styled.div`
 display: flex;
-min-height: 480px;
+height: 100%;
+max-height: 485px;
 flex-direction: column;
+overflow-y: auto;
 gap: 3rem;
-margin-top: 2rem;
-
+margin: 2rem 0;
+scroll-snap-type: y mandatory;
 `
 export const ListCard = styled.div`
 width: 100%;
@@ -59,8 +62,12 @@ gap: 2rem;
 align-items: center;
 transition: 140ms ease-in;
 cursor: pointer;
+
+scroll-snap-align: start;
+scroll-margin: .8rem;
+
 img {
-    width: 20%;
+    width: 15%;
 }
 h4{
     font-size: clamp(1.7rem, 3vw, 2rem);
@@ -78,10 +85,7 @@ transition: 140ms;
     opacity: 0.8;
 }
 }
-&:hover{
 
-    scale:1.03;
-}
 animation: show 140ms ease-in ;
 
 @keyframes show {
@@ -127,13 +131,22 @@ grid-template-areas:
  border-bottom: 1px solid var(--color-gray-500);
  border-radius: 0;
 }
+
 > button + button{
  border-left: 1px solid var(--color-gray-500);
 
 }
 
->button:active{
+.active{
     background: #0D161B;
+}
+
+> button:nth-child(1){
+    background: ${showPix => {showPix ? "blue" : ''}} ;
+}
+
+> button:nth-child(2){
+    background: ${(showCreditCard) => {showCreditCard ? "blue" : ''}} ;
 }
 `
 export const PaymentContent = styled.div`
