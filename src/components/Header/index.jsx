@@ -5,7 +5,7 @@ import Input from "../Input";
 import {FiSearch, FiLogOut, FiMenu, FiArrowLeft} from "react-icons/fi"
 import Button from "../button";
 import {PiReceipt} from "react-icons/pi"
-import {LuSalad} from "react-icons/lu"
+import {LuSalad, LuHistory, LuStar} from "react-icons/lu"
 import MenuMobile from "../menuMobile";
 import { useState,  } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +13,14 @@ import { useAuth } from "../../hooks/auth";
 import { useEffect } from "react";
 import { api } from "../../services/api";
 
+
 // eslint-disable-next-line react/prop-types
-export default function Header({onChange, item = []}){
+export default function Header({onChange}){
 
     const {user, signOut} = useAuth()
     const [cartItem, setCartItems] = useState([])
     const authAdmin = user && user.isAdmin
-
+   
     const navigate = useNavigate()
     const [MenuMobileOn, setMenuMobileOn] = useState(false)
     document.getElementsByClassName
@@ -43,7 +44,19 @@ export default function Header({onChange, item = []}){
     function handleCart(){
         navigate("/Pedidos")
     }
+    function handleSignOut(){
 
+        signOut()
+        navigate("/")
+    }
+
+    useEffect(() => {
+        async function fetchCartItems(){
+            const {data} = await api.get("/cart")
+            setCartItems(data)
+        }
+        fetchCartItems()
+    },[cartItem]) 
 
     return(
         <Container>
@@ -62,18 +75,21 @@ export default function Header({onChange, item = []}){
                          <Input
                         icon={FiSearch}
                         placeholder="Busque por pratos ou ingredientes"
+                        onChange = {onChange}
                         />
 
                         <Button
                         title="Meus Favoritos"
                         btn="transparent"
+                        icon={LuStar}
                         onClick={handleFavoriteDishes}
                         />
 
                         <Button
                         title="Histórico de pedidos"
                         btn="transparent"
-                        onClick={handleFavoriteDishes}
+                        icon={LuHistory}
+                        
                         />
                     {
                         user && user.isAdmin ?
@@ -93,7 +109,7 @@ export default function Header({onChange, item = []}){
                         title="Sair"
                         icon={FiArrowLeft}
                         btn="transparent"
-                        onClick ={signOut}
+                        onClick ={handleSignOut}
                         ></Button>
 
 
@@ -111,7 +127,6 @@ export default function Header({onChange, item = []}){
                 title="Meus Favoritos"
                 btn="transparent"
                 onClick={handleFavoriteDishes}
-                
                 />
                 {
                     authAdmin ? 
@@ -135,7 +150,7 @@ export default function Header({onChange, item = []}){
                 >
                  <Badge className="bagdeFloat">
                     <span>
-                        {item.length}
+                        {cartItem.length}
                     </span>
                     </Badge> 
                 </Button>
@@ -143,7 +158,7 @@ export default function Header({onChange, item = []}){
                 <Button
                 icon={FiLogOut}
                 btn="transparent"
-                onClick={signOut}
+                onClick={handleSignOut}
                 />
                  
                 </Content>

@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Container, AddToCard, Stepper, ProductFavIcon} from "./styles"
 import Button from "../button"
-import {FiPlus, FiMinus, FiHeart, FiArrowUpRight, FiEdit}from"react-icons/fi"
+import { FiPlus, FiMinus, FiHeart, FiArrowUpRight, FiEdit}from"react-icons/fi"
+import { FiAlertCircle} from "react-icons/fi"
+import { toast} from "react-toastify"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth} from "../../hooks/auth"
 import { api } from "../../services/api"
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
-import { useEffect } from "react"
-import { toast } from "react-toastify"
+
+
 export default function ProductCard({favorited, data, imageURL}){
     const {user} = useAuth()
 
@@ -40,7 +42,7 @@ export default function ProductCard({favorited, data, imageURL}){
               });
         }
         else{
-            const isConfirm = confirm("tirar como favorito ?")
+            const isConfirm = confirm(`tirar como favorito ?`)
 
             if(isConfirm){
                 await api.delete(`/favoriteDishes/${dishId}`)
@@ -72,7 +74,9 @@ export default function ProductCard({favorited, data, imageURL}){
     
     async function handleAddItensToCart(){
         if(!count){
-            return toast("insira uma quantidade para adicionar ao carinho")
+            return toast(` insira uma quantidade para adicionar ao carinho`, {
+                icon: FiAlertCircle
+            })
         }
         const cartItem = {
             title: data.title,
@@ -81,7 +85,7 @@ export default function ProductCard({favorited, data, imageURL}){
             product_id: data.id
         }
         await api.post("/cart", cartItem)
-        .then(toast("Adicionado com Sucesso !"))
+        .then(toast.success("Adicionado com Sucesso !"))
         .catch((error) => {
           if (error.response) {
             alert(error.response.data.message);

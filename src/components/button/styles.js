@@ -36,4 +36,26 @@ gap: 10px;
     border: 1px solid var(--color-white);
     background: transparent;
 }
+
+&:disabled{
+    opacity: 0.8;
+
+    animation: blink 2s ease-in-out  infinite ;
+}
+
+@keyframes blink {
+    
+    0%{
+        opacity: 1 ;
+    }
+
+    50%{
+        opacity: 0.6;
+
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
 `

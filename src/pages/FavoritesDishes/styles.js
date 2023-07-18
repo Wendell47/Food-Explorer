@@ -31,7 +31,7 @@ justify-content: space-between;
 export const  ContentFav = styled.div`
 display: grid;
 flex-wrap: wrap;
-gap: 3rem;
+gap: 4rem;
 margin-top: 2rem;
 
 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -39,7 +39,6 @@ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 export const FavCard = styled.div`
 flex: 1 0 min(52vw, 290px);
 border-radius: .8rem;
-padding:  2rem;
 display: flex;
 gap: 2rem;
 align-items: center;

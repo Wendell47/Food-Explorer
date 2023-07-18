@@ -55,10 +55,10 @@ fetchCategories()
 //console.log(categories)
 
     return(
-        <Container>
-            <Header 
+        <>
 
-            onChange ={e => setSearch(e.target.value)}/>
+        <Container>
+            <Header onChange ={e => setSearch(e.target.value)}/>
             <Content>
                 <ContainerContent>
                 <Banner/>
@@ -80,7 +80,12 @@ fetchCategories()
                         
                        return (
 
-                            filteredDishes == 0 ?
+                           (search && filteredDishes == 0) ?  
+                           
+                            "":""
+                           | 
+                           
+                           filteredDishes == 0 ?
                             
                             <Section
                             key={String(category.id)}
@@ -91,6 +96,7 @@ fetchCategories()
                             </Section>
                             
                             :
+
                             <Section
                         key={String(category.id)}
                         title={category.category_name}
@@ -98,6 +104,7 @@ fetchCategories()
                         <MySwiper
                         minCards={centeredDishesCard}
                         >
+
                         {
                          
                         filteredDishes.map(product =>{
@@ -130,12 +137,26 @@ fetchCategories()
                       
                     })
                    }
+                  
                 </ContainerContent>
 
                 <Footer/>
             </Content>
-            <ToastContainer/>
+            
         </Container>
 
+        <ToastContainer
+            position="top-center"
+            autoClose={1500}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
+        </>
     )
 }

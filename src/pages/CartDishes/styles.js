@@ -1,4 +1,4 @@
-import { cssTransition } from "react-toastify";
+
 import styled from "styled-components";
 
 export const Container =styled.div`
@@ -37,8 +37,27 @@ justify-content: space-between;
 
         > div{
             flex: 1 0 44%;
+
+          
         }
     }
+
+    .btnNext{
+        display: none;
+    }
+
+@media (max-width:700px) {
+    .btnNext{
+                margin-top: 4rem;
+            width: 200px;
+            float: right;
+            display: block;
+        }
+.hide{
+display: none;
+}
+
+}
 
 `
 
@@ -140,20 +159,12 @@ grid-template-areas:
 .active{
     background: #0D161B;
 }
-
-> button:nth-child(1){
-    background: ${showPix => {showPix ? "blue" : ''}} ;
-}
-
-> button:nth-child(2){
-    background: ${(showCreditCard) => {showCreditCard ? "blue" : ''}} ;
-}
 `
 export const PaymentContent = styled.div`
 
 grid-area: content;
 height: 400px;
-
+padding: 2rem;
 display: flex;
 align-items: center;
 justify-content: center;

@@ -48,6 +48,7 @@ export const Content = styled.div`
         margin: 0 auto;
         svg{
             width: 3rem;
+            height: 3rem;
         }
         span{
             font-size: 2.5rem;

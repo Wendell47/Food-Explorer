@@ -1,21 +1,21 @@
 import { Container, Content, FavCard, ContentFav } from "./styles";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+
 import ContainerContent from "../../components/ContainerContent";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Section from "../../components/Section"
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
-import { useNavigate, useParams } from "react-router-dom";
-import img from "../../assets/image-3.png"
+
 
 
 export default function FavoriteDishes(){
-    const navigate = useNavigate ()
+const navigate = useNavigate ()
 const [products, setProducts] = useState([])
 const [favoriteDishes, setFavoriteDishes] = useState([])
 const [search, setSearch] = useState("")
-const [image, setImage] = useState([])
-const params = useParams()
+
 
 
 useEffect(()=>{

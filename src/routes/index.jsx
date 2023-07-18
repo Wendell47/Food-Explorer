@@ -12,16 +12,7 @@ export default function Routes(){
     const isAdmin = user && user.isAdmin
 
     const route = isAdmin ? <AdminRoutes/> : <AppRoutes/>
-    /*const[isAdmin, setIsAdmin] = useState("")
-    useEffect(() => {
-  async function fetchData() {
-    // You can await here
-    const response = await api.get("/sessions");
-    setIsAdmin(response)
-  }
-  fetchData();
-}, []);
-    console.log(isAdmin)*/
+ 
     return(
         <BrowserRouter>
         {user ? route : <AuthRoutes/> }

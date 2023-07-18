@@ -1,28 +1,28 @@
 import { Container, Content, ListCard, ContentCart, Payment, PaymentContent  } from "./styles";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { MdPix} from "react-icons/md"
+import { AiFillCreditCard} from "react-icons/ai"
+
 import ContainerContent from "../../components/ContainerContent";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Section from "../../components/Section"
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
-import { useNavigate, useParams } from "react-router-dom";
-import img from "../../assets/image-3.png"
 import pixImage from "../../assets/pixImage.svg"
 import Button from "../../components/button";
-
-import {MdPix} from "react-icons/md"
-import {AiFillCreditCard} from "react-icons/ai"
 import CreditCard from "../../components/CreditCard";
 
 export default function CartDishes(){
-    const navigate = useNavigate ()
+const navigate = useNavigate ()
 const [products, setProducts] = useState([])
 const [cartItem, setCartItems] = useState([])
-const [search, setSearch] = useState("")
-const [update,setUpdated] = useState(0)
+const [payment,setPayment] = useState(false)
 const [showPix, setShowPix] = useState(true)
 const [showCreditCard, setShowCreditCard] = useState(false)
-//const [total, setTotal] = useState(0)
+const [search, setSearch] = useState("")
+const [update,setUpdated] = useState(0)
+
 
 useEffect(()=>{
     
@@ -67,6 +67,11 @@ function handlePixMethod(){
     setShowCreditCard(false)
     setShowPix(true)
 }
+function handlePaymentSection(){
+
+    setPayment(true)
+    
+}
 let sum 
 let total = 0
     return(
@@ -82,6 +87,7 @@ let total = 0
                <div className="flexContainer">
                <Section
                 title="Meu Pedido"
+                className={payment ? "hide": ""}
                 >
                     <ContentCart>
                        {
@@ -122,12 +128,20 @@ let total = 0
                        }
                       
                     </ContentCart>
-                   <p>R$ {Number(total).toFixed(2).replace(".", ",")}</p>
+                   <p>Total: R$ {Number(total).toFixed(2).replace(".", ",")}</p>
+
+                   <Button
+                btn="primary"
+                title="Avançar"
+                className="btnNext"
+                onClick={handlePaymentSection}
+                />
                 </Section>
 
                 <Section
                 title="Pagamento"
-                >
+                className= {`mobilePayment ${payment ? "":"hide"}`}>
+                
   
                        <Payment>
                        
@@ -161,10 +175,10 @@ let total = 0
                 </Section>
                </div>
               
-                
+               
                 </ContainerContent>
                 <Footer/>
-                
+               
             </Content>
             
         </Container>

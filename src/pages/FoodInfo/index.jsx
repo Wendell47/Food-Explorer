@@ -3,7 +3,7 @@ import ContainerContent from "../../components/ContainerContent";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/button"
-import {FiPlus, FiMinus, FiChevronLeft} from "react-icons/fi"
+import {FiPlus, FiMinus, FiChevronLeft, FiAlertCircle} from "react-icons/fi"
 import { useState, useEffect } from "react"
 import Section from "../../components/Section";
 import Tags from "../../components/Tags";
@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
-
+import { toast, ToastContainer } from "react-toastify";
 export default function FoodInfo(){
     const{user} = useAuth()
 
@@ -31,8 +31,9 @@ export default function FoodInfo(){
             setData(response.data)
         }
         fetchProduct()
-    },[])
+    },[params.id])
         
+
 
     function handleBack(){
 
@@ -58,8 +59,32 @@ export default function FoodInfo(){
     function handleEditDish(id){
         navigate(`/editDish/${id}`)
     }
+    async function handleAddItensToCart(){
+        if(!count){
+            return toast(` insira uma quantidade para adicionar ao carinho`, {
+                icon: FiAlertCircle
+            })
+        }
+        const cartItem = {
+            title: data.title,
+            quantity: count,
+            price: data.price,
+            product_id: data.id
+        }
+        await api.post("/cart", cartItem)
+        .then(toast.success("Adicionado com Sucesso !"))
+        .catch((error) => {
+          if (error.response) {
+            alert(error.response.data.message);
+          } else {
+            toast("Erro ao cadastrar Prato");
+          }
+        });
 
+    }
     return(
+        <>
+
         <Container>
             <Header/>
             {
@@ -132,6 +157,7 @@ export default function FoodInfo(){
                                 <Button
                                 title={`incluir • R$ ${Number(totalPrice).toFixed(2).replace('.',',')}`}
                                 btn="primary"
+                                onClick={handleAddItensToCart}
                                 />
                             </div>
                          </>
@@ -148,7 +174,21 @@ export default function FoodInfo(){
             </Content>
             
             }
+              
         </Container>
 
+        <ToastContainer
+            position="top-center"
+            autoClose={1500}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
+</>
     )
 }

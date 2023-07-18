@@ -2,7 +2,7 @@
 import { Container } from "./styles";
 
 
-export default function Button({title,icon: Icon, children, btn, className,...rest}){
+export default function Button({title,icon: Icon, children, btn, className, disabled = false,...rest}){
 
  if(btn == "primary"){
     btn = 'btnPrimary'
@@ -23,12 +23,12 @@ export default function Button({title,icon: Icon, children, btn, className,...re
         <>
       
         <Container
-        
-        className={btn && className ? className : btn}
+        className={`${btn} ${className}`}
         {...rest}
+        disabled={disabled}
         >
          {Icon && <Icon size={25}/>}         
-          {title}
+          {disabled ? "...carregando" : title}
           {children}
         </Container>
        

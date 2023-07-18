@@ -7,17 +7,27 @@ import Button from "../../components/button";
 import { Link } from "react-router-dom";
 import {FiMail, FiKey} from 'react-icons/fi'
 import {useAuth} from '../../hooks/auth'
-
+import { toast, ToastContainer } from "react-toastify";
 export default function SignIn(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const {signIn, isLoading} = useAuth()
 
-    const {signIn} = useAuth()
     function handleSignIn(){
-        event.preventDefault()
-        signIn({email, password})
-    }
 
+        
+        event.preventDefault()
+       
+            
+        if(!email && !password){
+            toast.error("Informe email e senha")
+        }
+        else{
+            signIn({email, password})
+        }
+       
+    }
+    console.log(isLoading)
     return(
         <Container>
 
@@ -50,14 +60,16 @@ export default function SignIn(){
                  title="Entrar" 
                  btn="primary"
                  onClick = {handleSignIn}
+                 disabled={isLoading}
                  />
                 <Link to="/signUp"> 
-                <Button title="Criar uma conta" btn="transparent"/></Link>
+                <Button title="Criar uma conta" btn="transparent" /></Link>
                  </form>
                 </div>
                 
                 </Content>
             </ContainerContent>
+            <ToastContainer/>
         </Container>
     )
 }
