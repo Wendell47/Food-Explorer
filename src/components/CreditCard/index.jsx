@@ -13,13 +13,13 @@ export default function CreditCard(){
             bordered
             />
             <Input
-            title="Número do Cartão"
+            title="Validade"
             placeholder="00/00"
             className="cardVal"
             bordered
             />
             <Input
-            title="Número do Cartão"
+            title="CVC"
             placeholder="000"
             className="cardCVC"
             bordered
