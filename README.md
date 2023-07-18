@@ -3,10 +3,10 @@
 ![Logo](/src/assets/logo.svg)
 
 
-
+![img](./src/assets/banner.jpg)
 # Food Explorer 
 
-food explore é um projeto realizado através do curso da RocketSeat que simula uma loja de comidas moderna.
+food explore é um projeto realizado através do curso da RocketSeat que simula um restaurante.
 
 Nele o cliente pode interagir vendo os produtos adicionados pelo administrador, adicionar em uma carinho e finalizar a compra.
 
@@ -15,18 +15,62 @@ o administrador pode adicionados os pratos, bem como todos os detalhes do produt
 
 
 
-## Apêndice
-
-Coloque qualquer informação adicional aqui
-
-
 ## Stack utilizada
 
 **Front-end:** 
 React, 
 Styles Components, 
-knex
+knex,
+Swiper,
+React Icons,
+React Router Dom,
+react-toastify
 
 
-**Back-end:** Node, Axios, pm2
+**Back-end:** Node, Axios, pm2, JWT, bcryptjs, Jest, Multer, Express
 
+
+### Iniciando a aplicação:
+
+- in terminal clone this project:
+
+```bash
+$ git clone https://github.com/Wendell47/Food-Explorer.git
+```
+
+- access the project folder:
+
+```bash
+$ cd foodexplorer
+```
+
+- install dependencies:
+
+```bash
+$ npm install
+```
+
+- run server:
+
+```bash
+$ npm run dev
+
+
+```
+
+### Admin account access:
+
+mail: admin@gmail.com</br>
+password: 1234
+
+### User account access:
+
+mail: user@gmail.com</br>
+password: 1234
+
+## 🎨 Back-end
+
+You can access the repository through [this link](https://github.com/Wendell47/FoodExplorer-API.git)
+
+
+<p align="center">Developed with ❤️ by <a href="https://github.com/Wendell47/" target="_blank">Wendel Araujo</a></p>
