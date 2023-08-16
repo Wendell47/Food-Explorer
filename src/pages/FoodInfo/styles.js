@@ -1,38 +1,14 @@
 import styled from "styled-components";
 
-export const Container =styled.div`
-width: 100%;
-height: 100vh;
 
-display: grid;
-
-
-grid-template-columns: auto;
-grid-template-rows: clamp(70px, 10vw, 100px) auto;
-grid-template-areas: 
-
-"header"
-"content"
-
-;
-
-
-`
 
 export const Content = styled.div`
 
-grid-area: content;
-margin-top: 2rem;
-overflow-y: auto;
-
-display: flex;
-flex-direction: column;
-justify-content: space-between;
 
 > div{
     > button{
     width: max-content;
-    padding: 0;
+    padding: 0 !important;
     font-weight: bold;
 }
 }
@@ -45,6 +21,7 @@ align-items: center;
 margin: 2rem 0;
 width: 100%;    
 gap:20px;
+
 
 p {
     font-size: clamp(1.6rem, 2vw, 2rem);

@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import AuthRoutes from "./auth.routes";
-import AppRoutes from "./app.routes";
-import AdminRoutes from "./admin.routes";
+import AppRoutes from "./AppRoute/app.routes";
+import AdminRoutes from "./AdminRoute/admin.routes";
 import { useAuth } from "../hooks/auth";
 
 

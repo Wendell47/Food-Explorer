@@ -1,4 +1,4 @@
-import { Container, Content, ListCard, ContentCart, Payment, PaymentContent  } from "./styles";
+import { Content, ListCard, ContentCart, Payment, PaymentContent  } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -6,12 +6,12 @@ import { MdPix} from "react-icons/md"
 import { AiFillCreditCard} from "react-icons/ai"
 
 import ContainerContent from "../../components/ContainerContent";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+
 import Section from "../../components/Section"
 import pixImage from "../../assets/pixImage.svg"
 import Button from "../../components/button";
 import CreditCard from "../../components/CreditCard";
+import LoadingScreen from "../../components/loadingComponents/loadingScreen";
 
 export default function CartDishes(){
 const navigate = useNavigate ()
@@ -20,7 +20,6 @@ const [cartItem, setCartItems] = useState([])
 const [payment,setPayment] = useState(false)
 const [showPix, setShowPix] = useState(true)
 const [showCreditCard, setShowCreditCard] = useState(false)
-const [search, setSearch] = useState("")
 const [update,setUpdated] = useState(0)
 
 
@@ -28,12 +27,12 @@ useEffect(()=>{
     
     async function fetchProducts(){
 
-        const response = await api.get(`/products?title=${search}&tags=${search}`)
+        const response = await api.get(`/products?title=&tags=`)
         setProducts(response.data)
     }
     fetchProducts()
     
-},[search])
+},[])
 
 useEffect(() => {
     async function fetchCartItems(){
@@ -75,13 +74,12 @@ function handlePaymentSection(){
 let sum 
 let total = 0
     return(
-        <Container>
-            <Header 
-            item={cartItem}
-            onChange ={e => setSearch(e.target.value)}/>
-            <Content
-            
-            >
+       <>
+       <LoadingScreen
+       isLoading={!cartItem}
+       />
+
+       <Content>
                 <ContainerContent>
                
                <div className="flexContainer">
@@ -89,7 +87,9 @@ let total = 0
                 title="Meu Pedido"
                 className={payment ? "hide": ""}
                 >
+                    
                     <ContentCart>
+                    <div>
                        {
                         cartItem ? cartItem.map(cartItem =>{
 
@@ -126,8 +126,10 @@ let total = 0
                         :
                         <p>Não tem pratos adicionados nos pedidos ainda!</p>
                        }
-                      
+                      </div>
+
                     </ContentCart>
+                    
                    <p>Total: R$ {Number(total).toFixed(2).replace(".", ",")}</p>
 
                    <Button
@@ -177,11 +179,9 @@ let total = 0
               
                
                 </ContainerContent>
-                <Footer/>
                
             </Content>
-            
-        </Container>
-
+       </>
+           
     )
 }

@@ -43,6 +43,9 @@ gap: 10px;
     animation: blink 2s ease-in-out  infinite ;
 }
 
+.loading{
+    animation: circle 1s ease-out infinite;
+}
 @keyframes blink {
     
     0%{
@@ -56,6 +59,22 @@ gap: 10px;
 
     100%{
         opacity: 1;
+    }
+}
+@keyframes circle {
+    
+    0%{
+        rotate: 0deg ;
+    }
+
+    90%{
+        rotate: 330deg;
+
+    }
+
+    100%{
+
+        rotate: 360deg;
     }
 }
 `

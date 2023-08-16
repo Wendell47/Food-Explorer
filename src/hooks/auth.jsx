@@ -13,6 +13,7 @@ function AuthProvider({children}){
     const [loading,setLoading] = useState(false)
 
     async function signIn({email,password}){
+        
         setLoading(true)
 
        try{

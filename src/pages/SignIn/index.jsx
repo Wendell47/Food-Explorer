@@ -45,6 +45,7 @@ export default function SignIn(){
                  <form>
                  <Input 
                  title="Email"
+                 type="email"
                  icon={FiMail}
                  placeholder="Exemplo: exemplo@exemplo.com.br"
                  onChange ={e => setEmail(e.target.value)}
@@ -53,7 +54,7 @@ export default function SignIn(){
                  title="Senha" 
                  icon={FiKey}
                  type="password"
-                 placeholder="No mínimo 6 caracteres"
+                 placeholder="sua senha"
                  onChange ={e => setPassword(e.target.value)}
                  />
                  <Button 

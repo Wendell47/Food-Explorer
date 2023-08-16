@@ -1,5 +1,6 @@
 import { Container, Content, Badge} from "./styles";
 import ContainerContent from "../ContainerContent";
+import Search from "../Search";
 import Logo from "../Logo";
 import Input from "../Input";
 import {FiSearch, FiLogOut, FiMenu, FiArrowLeft} from "react-icons/fi"
@@ -7,12 +8,11 @@ import Button from "../button";
 import {PiReceipt} from "react-icons/pi"
 import {LuSalad, LuHistory, LuStar} from "react-icons/lu"
 import MenuMobile from "../menuMobile";
-import { useState,  } from "react";
+import { useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useEffect } from "react";
 import { api } from "../../services/api";
-
 
 // eslint-disable-next-line react/prop-types
 export default function Header({onChange}){
@@ -72,11 +72,7 @@ export default function Header({onChange}){
                     className={MenuMobileOn ? "" : "hide"}
                     hide={handleMenuMobile}
                     >
-                         <Input
-                        icon={FiSearch}
-                        placeholder="Busque por pratos ou ingredientes"
-                        onChange = {onChange}
-                        />
+                         <Search/>
 
                         <Button
                         title="Meus Favoritos"
@@ -115,13 +111,11 @@ export default function Header({onChange}){
 
                     </MenuMobile>
                 <Logo isAdmin={authAdmin}/>
-                <Input
+
+                <Search/>
                 
-                icon={FiSearch}
-                type="search"
-                placeholder="Busque por pratos ou ingredientes"
-                onChange = {onChange}
-                />
+                
+               
 
                 <Button
                 title="Meus Favoritos"

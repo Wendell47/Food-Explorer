@@ -1,7 +1,6 @@
-import { AddToCard, Container, Content, Stepper, FoodContent, ContentTags} from "./styles";
+import { AddToCard, Content, Stepper, FoodContent, ContentTags} from "./styles";
 import ContainerContent from "../../components/ContainerContent";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+
 import Button from "../../components/button"
 import {FiPlus, FiMinus, FiChevronLeft, FiAlertCircle} from "react-icons/fi"
 import { useState, useEffect } from "react"
@@ -12,6 +11,8 @@ import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
 import { toast, ToastContainer } from "react-toastify";
+import LoadingScreen from "../../components/loadingComponents/loadingScreen";
+
 export default function FoodInfo(){
     const{user} = useAuth()
 
@@ -84,9 +85,9 @@ export default function FoodInfo(){
     }
     return(
         <>
-
-        <Container>
-            <Header/>
+            <LoadingScreen
+            isLoading={!data}
+            />
             {
                 data && 
                 <Content>
@@ -169,14 +170,12 @@ export default function FoodInfo(){
                     </FoodContent>
                    
                 </ContainerContent>
-                <Footer/>
-                
+              
+              
             </Content>
             
             }
-              
-        </Container>
-
+    
         <ToastContainer
             position="top-center"
             autoClose={1500}

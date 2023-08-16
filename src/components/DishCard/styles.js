@@ -9,17 +9,29 @@ display: flex;
 align-items: center;
 justify-content: space-evenly;
 flex-direction:column;
-background: var(--bg-gradient-500);
+background: var(--bg-color-800);
 padding: 2rem;
 border-radius: .8rem;
 gap: 2rem;
+border: 1px solid var(--bg-color-800);
+
+&:hover{
+    border: 1px solid var(--bg-color-700)
+
+}
 
 
 img{
 
     width: 60%;
+    filter: drop-shadow( 0 0 1rem var(--bg-color-900));
+    transition: 240ms ease-in-out;
 }
 
+&:hover img{
+    scale: 1.03;
+    filter: drop-shadow( 0 0 2rem var(--bg-color-900));
+}
 > h4{
     font-size: clamp(2rem, 1vw,2.5rem);
     font-weight: 700;
@@ -153,5 +165,29 @@ margin: 2rem;
         scale: 1;
     }
     
+}
+`
+
+export const Loading = styled.div`
+
+border-radius: 100%;
+padding: 30%;
+animation: animation 2s ease-out infinite forwards;
+background: #ffffff08;
+;
+
+@keyframes animation {
+    0%{
+        opacity: 0;
+        
+    }
+
+    60%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
 }
 `

@@ -1,6 +1,5 @@
-import {Container, Content} from "./styles";
+import { Form} from "./styles";
 import ContainerContent from "../../components/ContainerContent";
-import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/button"
 import { FiChevronLeft} from "react-icons/fi"
@@ -15,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
-
+import LoadingScreen from "../../components/loadingComponents/loadingScreen";
 
 export default function CreateNewProduct(){
 
@@ -172,9 +171,9 @@ export default function CreateNewProduct(){
     //const imageURL = imageFile ?? `${api.defaults.baseURL}/files/${imageFile}`
     
     return(
-        <Container>
-            <Header/>
-            <Content>
+            <>
+            
+            <Form>
                 
                 <ContainerContent>
                 <Button
@@ -187,7 +186,9 @@ export default function CreateNewProduct(){
                     <Section
                     title="Adicionar prato"
                     >   
-                    <form onSubmit={e => {
+                    <form
+                    className=""
+                    onSubmit={e => {
                         e.preventDefault();
                         }}>
                         <fieldset>
@@ -309,11 +310,10 @@ export default function CreateNewProduct(){
                     
                         
                 </ContainerContent>
-                <Footer/>
-                
-            </Content>
+         
+            </Form>
             <ToastContainer/>
-        </Container>
+            </>
 
     )
 }

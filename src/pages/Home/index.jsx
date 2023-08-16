@@ -1,21 +1,22 @@
 import { Container, Content} from "./styles";
 import ContainerContent from "../../components/ContainerContent";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import Banner from "../../components/Banner";
 import MySwiper from "../../components/Swiper";
 import Section from "../../components/Section";
+import LoadingCard from "../../components/loadingComponents/titleLoading";
 import { SwiperSlide } from "swiper/react";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/DishCard";
 import ContainerDishesNull from "../../components/ContainerDishesNull";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import imagePlaceholder from "../../assets/image-3.png"
 import { ToastContainer } from "react-toastify";
+import LoadingScreen from "../../components/loadingComponents/loadingScreen";
+
 export default function Home(){
 
 const [products, setProducts] = useState([])
-//const [tags, setTags] = useState([])
+const [loading, setLoading] = useState(false)
 const [categories, setCategories] = useState([])
 const [search, setSearch] = useState([])
 const [favoriteDishes, setFavoriteDishes] = useState([]) 
@@ -29,18 +30,21 @@ useEffect(() =>{
         
      }
      fetchFavoriteDishes()
-},[favoriteDishes])
+
+},[])
 
 useEffect(()=>{
     
     async function fetchProducts(){
-
-        const response = await api.get(`/products?title=${search}&tags=`)
-        setProducts(response.data)
+        const {data} = await api.get(`/products?title=&tags=`)
+        setProducts(data)
+        if(data){
+            setLoading(true)
+        }
     }
     fetchProducts()
     
-},[search])
+},[])
 
 useEffect(() =>{
     async function fetchCategories(){
@@ -51,20 +55,21 @@ useEffect(() =>{
 fetchCategories()
 }, [])
 
-//console.log(products)
+console.log(products)
 //console.log(categories)
 
     return(
         <>
+        <LoadingScreen
+        isLoading={!products}/>
 
         <Container>
-            <Header onChange ={e => setSearch(e.target.value)}/>
             <Content>
                 <ContainerContent>
                 <Banner/>
                   
                  {
-
+                    loading ?
                     categories.map(category =>{
                         const filteredDishes = products.filter(dish => dish.category === category.category_name)
 
@@ -107,6 +112,7 @@ fetchCategories()
 
                         {
                          
+                       
                         filteredDishes.map(product =>{
                            
 
@@ -123,12 +129,13 @@ fetchCategories()
                            >
                             <ProductCard
                             data={product}
-                            imageURL= {imageURL}
+                            imageURL= {imageURL ? imageURL : ""}
                             favorited={idFavorite}
                             />
                             </SwiperSlide>
                             ))}
                             )
+                            
                         }   
                         </MySwiper> 
                         </Section>
@@ -136,13 +143,29 @@ fetchCategories()
                        )
                       
                     })
+                    :
+                    <>
+                    <Section>
+                    <MySwiper
+                    >
+
+                     {
+                        Array.from({length: 4}).map((_,index)=>(
+                            <SwiperSlide 
+                            key={index}
+                            >
+                             <LoadingCard/>
+                             </SwiperSlide>
+                        ))
+                     }
+
+                    </MySwiper> 
+                    </Section>
+                    </>
                    }
                   
                 </ContainerContent>
-
-                <Footer/>
             </Content>
-            
         </Container>
 
         <ToastContainer

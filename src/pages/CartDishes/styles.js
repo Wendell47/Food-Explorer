@@ -20,13 +20,7 @@ grid-template-areas:
 
 export const Content = styled.div`
 
-grid-area: content;
-overflow-y: auto;
-padding-top:4rem;
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+
 
     .flexContainer{
         display: flex;
@@ -63,14 +57,40 @@ display: none;
 
 
 export const  ContentCart= styled.div`
+
+position: relative;
+
+&::after,&::before{
+content:'';
+height: 40px;
+width: 100%;
+background: beige;
+position: absolute;
+
+}
+
+&::before{
+top: 0;
+background: linear-gradient(0deg, rgba(0, 10, 15, 0) 0%, #000A0F 100%);
+}
+
+&::after{
+bottom: 0;
+background: linear-gradient(180deg, rgba(0, 10, 15, 0) 0%, #000A0F 100%);
+}
+
+> div{
 display: flex;
 height: 100%;
-max-height: 485px;
+max-height: 435px;
 flex-direction: column;
 overflow-y: auto;
 gap: 3rem;
 margin: 2rem 0;
 scroll-snap-type: y mandatory;
+
+}
+
 `
 export const ListCard = styled.div`
 width: 100%;
@@ -105,6 +125,12 @@ transition: 140ms;
 }
 }
 
+&:first-child{
+    padding-top: 3rem;
+}
+&:last-child{
+    padding-bottom: 3rem;
+}
 animation: show 140ms ease-in ;
 
 @keyframes show {
@@ -163,7 +189,8 @@ grid-template-areas:
 export const PaymentContent = styled.div`
 
 grid-area: content;
-height: 400px;
+
+height: min(361px, 358px);
 padding: 2rem;
 display: flex;
 align-items: center;

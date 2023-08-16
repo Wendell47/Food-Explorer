@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Container } from "./styles";
-
+import { LuLoader2 } from "react-icons/lu";
 
 export default function Button({title,icon: Icon, children, btn, className, disabled = false,...rest}){
 
@@ -27,8 +27,9 @@ export default function Button({title,icon: Icon, children, btn, className, disa
         {...rest}
         disabled={disabled}
         >
-         {Icon && <Icon size={25}/>}         
-          {disabled ? "...carregando" : title}
+         {Icon && <Icon size={25}/>}
+          {disabled && <LuLoader2 className="loading"/>}         
+          {disabled ? "carregando" : title}
           {children}
         </Container>
        

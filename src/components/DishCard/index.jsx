@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Container, AddToCard, Stepper, ProductFavIcon} from "./styles"
+import { Container, AddToCard, Stepper, ProductFavIcon, Loading} from "./styles"
 import Button from "../button"
 import { FiPlus, FiMinus, FiHeart, FiArrowUpRight, FiEdit}from"react-icons/fi"
 import { FiAlertCircle} from "react-icons/fi"
 import { toast} from "react-toastify"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth} from "../../hooks/auth"
 import { api } from "../../services/api"
@@ -12,21 +12,25 @@ import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
 
 
 export default function ProductCard({favorited, data, imageURL}){
-    const {user} = useAuth()
-
-    const authAdmin = user && user.isAdmin
     const navigate = useNavigate ()
+    const {user} = useAuth()
+    const  authAdmin = user && user.isAdmin
+
+    const [loading, setLoading] = useState(false)
+    const [loadingItem, setLoadingItem] = useState(false)    
     const [count, setCount] = useState(0)
   
-        const dishId = favorited.map(dish =>{
+    const dishId = favorited.map(dish =>{
 
-            if(dish.product_id === data.id){
-                return dish.id
-            }
+        if(dish.product_id === data.id){
+            return dish.id
+        }
          
-})
+    })
 
-
+    useEffect(() =>{
+        setLoadingItem(true)
+    },[data.image])
     
     async function HandleClick(){
         
@@ -52,9 +56,6 @@ export default function ProductCard({favorited, data, imageURL}){
 
     }
     
-    
-
-  
     function HandleCountAdd(){
         
         setCount(count + 1)
@@ -73,7 +74,9 @@ export default function ProductCard({favorited, data, imageURL}){
     }
     
     async function handleAddItensToCart(){
+      
         if(!count){
+            setLoading(false)
             return toast(` insira uma quantidade para adicionar ao carinho`, {
                 icon: FiAlertCircle
             })
@@ -84,8 +87,12 @@ export default function ProductCard({favorited, data, imageURL}){
             price: data.price,
             product_id: data.id
         }
+        setLoading(true)
+
         await api.post("/cart", cartItem)
-        .then(toast.success("Adicionado com Sucesso !"))
+        .then(
+            toast.success("Adicionado com Sucesso !")            
+        )
         .catch((error) => {
           if (error.response) {
             alert(error.response.data.message);
@@ -93,7 +100,7 @@ export default function ProductCard({favorited, data, imageURL}){
             toast("Erro ao cadastrar Prato");
           }
         });
-
+        setLoading(false)
     }
     return(
         
@@ -121,10 +128,16 @@ export default function ProductCard({favorited, data, imageURL}){
             </ProductFavIcon>
             
            
+            {
+            loadingItem ?
             <img 
-            src={data.Image ? imageURL : imgPlaceHolder} 
+            src={data.image ? imgPlaceHolder : imageURL  } 
             alt={data.image && data.description} 
+            loading="lazy"
             />
+            :
+            <Loading/> 
+            }
             <h4>{data.title}</h4>
             <div className="description">
                 <p>{data.description}</p>
@@ -167,6 +180,7 @@ export default function ProductCard({favorited, data, imageURL}){
                 <Button
                 title="incluir"
                 btn="primary"
+                disabled={loading}
                 onClick={handleAddItensToCart}
                 />
 
