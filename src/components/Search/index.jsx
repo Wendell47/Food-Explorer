@@ -25,7 +25,7 @@ export default function Search({closeMenuMobile}){
         
     }
     
-console.log(closeMenuMobile)
+//console.log(closeMenuMobile)
 //console.log(dish)
 
 useEffect(() =>{

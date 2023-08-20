@@ -127,7 +127,7 @@ export default function CreateNewProduct(){
                 .patch(`/products/${params.id}`, formDataImage)
                }
                
-               console.log(imageFile)
+              // console.log(imageFile)
      }
 
     async function handleNewProduct(){
@@ -174,7 +174,7 @@ export default function CreateNewProduct(){
           }
         });
 
-
+        navigate("/CreateNewProduct");
     }
     //const imageURL = imageFile ?? `${api.defaults.baseURL}/files/${imageFile}`
    
@@ -281,8 +281,9 @@ export default function CreateNewProduct(){
                         placeholder="00,00"
                         
                         min="0"
+                        step="0.01"
                         lang="pt-br"
-                        pattern="^\d*(\.\d{0,2})?$"
+                        pattern="^\d+(,\d{1,2})?$" 
                         className = "product-price"
                         onChange ={e => setPrice(e.target.value)}
                         value={price ? price : ''}
@@ -326,7 +327,18 @@ export default function CreateNewProduct(){
                 </ContainerContent>
          
             </Form>
-            <ToastContainer/>
+            <ToastContainer
+            position="top-center"
+            autoClose={1500}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
             </>
 
     )
