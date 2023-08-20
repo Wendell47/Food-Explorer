@@ -13,12 +13,16 @@ import imagePlaceholder from "../../assets/image-3.png"
 import { ToastContainer } from "react-toastify";
 import LoadingScreen from "../../components/loadingComponents/loadingScreen";
 
+//import { useAuth } from "../../hooks/auth";
 export default function Home(){
 
 const [products, setProducts] = useState([])
 const [loading, setLoading] = useState(false)
 const [categories, setCategories] = useState([])
-const [search, setSearch] = useState([])
+const [favorite, setFavorite] = useState()
+
+
+
 const [favoriteDishes, setFavoriteDishes] = useState([]) 
 
 useEffect(() =>{
@@ -30,8 +34,8 @@ useEffect(() =>{
         
      }
      fetchFavoriteDishes()
-
-},[])
+     setFavorite(false)
+},[favorite])
 
 useEffect(()=>{
     
@@ -85,7 +89,7 @@ console.log(products)
                         
                        return (
 
-                           (search && filteredDishes == 0) ?  
+                           (products && filteredDishes == 0) ?  
                            
                             "":""
                            | 
@@ -130,7 +134,9 @@ console.log(products)
                             <ProductCard
                             data={product}
                             imageURL= {imageURL ? imageURL : ""}
-                            favorited={idFavorite}
+                            isFavorite={idFavorite}
+                            setFavorite={e => setFavorite(e)}
+                            
                             />
                             </SwiperSlide>
                             ))}
@@ -144,13 +150,14 @@ console.log(products)
                       
                     })
                     :
-                    <>
+                
                     <Section>
                     <MySwiper
+                    minCards={3}
                     >
 
                      {
-                        Array.from({length: 4}).map((_,index)=>(
+                        Array.from({length: 3}).map((_,index)=>(
                             <SwiperSlide 
                             key={index}
                             >
@@ -161,7 +168,7 @@ console.log(products)
 
                     </MySwiper> 
                     </Section>
-                    </>
+                   
                    }
                   
                 </ContainerContent>

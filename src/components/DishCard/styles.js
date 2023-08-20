@@ -9,7 +9,7 @@ display: flex;
 align-items: center;
 justify-content: space-evenly;
 flex-direction:column;
-background: var(--bg-color-800);
+background: var(--bg-color-300);
 padding: 2rem;
 border-radius: .8rem;
 gap: 2rem;
@@ -26,12 +26,10 @@ img{
     width: 60%;
     filter: drop-shadow( 0 0 1rem var(--bg-color-900));
     transition: 240ms ease-in-out;
+    cursor: pointer;
 }
 
-&:hover img{
-    scale: 1.03;
-    filter: drop-shadow( 0 0 2rem var(--bg-color-900));
-}
+
 > h4{
     font-size: clamp(2rem, 1vw,2.5rem);
     font-weight: 700;
@@ -72,19 +70,14 @@ flex: 1 0 auto;
     
     display: flex;
     gap: 10px;
-    
-    > button:first-child{
-        flex: 1 2 auto;
-     width:70%;
-     padding: 1rem 0 ;
+    align-items:center;
+    > div:first-child{
+        flex: 1 2 auto;     
     }
     > button:last-child{
         flex: 1 2 auto;
-       width: 10%;
-       padding: 0;
-       > svg{
-        width: 2rem;
-       }
+       width: 40%;
+      
     }
 }
 `

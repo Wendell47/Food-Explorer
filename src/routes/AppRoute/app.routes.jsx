@@ -6,12 +6,18 @@ import CartDishes from '../../pages/CartDishes'
 import { Container,Content} from './styles'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+//import { UpdateCart } from '../../hooks/updateCart' 
+
 export default function AppRoutes(){
+    //const value = UpdateCart()
+        //console.log(value)
     return(
-      
+        
 
        <Container>
-       <Header/>
+       <Header
+       //loading={value}
+       />
         <Content>
         <Routes>
             

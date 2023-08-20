@@ -17,6 +17,9 @@ border-end-start-radius: .5rem;
 border-end-end-radius: .5rem;
 
 background: var(--bg-color-700);
+transition: all 140ms ease-out;
+height: max-content;
+
 > div {
     cursor: pointer;
     padding: 1rem 1rem;

@@ -1,6 +1,5 @@
 import { Form} from "./styles";
 import ContainerContent from "../../components/ContainerContent";
-import Footer from "../../components/Footer";
 import Button from "../../components/button"
 import { FiChevronLeft} from "react-icons/fi"
 import Section from "../../components/Section";
@@ -11,6 +10,7 @@ import { TagItem } from "../../components/TagItem";
 import CategoryOptions from "../../components/Category Options";
 import {toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
@@ -24,6 +24,7 @@ export default function CreateNewProduct(){
     const [price, setPrice] = useState("")
     const [category, setCategory] = useState("")
     const [newTag, setNewTag] = useState("")
+    const [categories, setCategories] = useState([])
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [editingDish, setEditingDish] = useState(null)
@@ -51,9 +52,6 @@ export default function CreateNewProduct(){
     
     }
 
-    const [categories, setCategories] = useState([])
-
-     
      useEffect(() =>{
 
         async function fetchCategories(){  
@@ -110,15 +108,17 @@ export default function CreateNewProduct(){
       
        await api.put(`/products/${params.id}`, newData)
 
-            .then(toast("Alterações salvas com Sucesso !"))
             .catch((error) => {
               if (error.response) {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message);
               } else {
                 toast("Erro ao editar Prato");
               }
+              return
             });
             
+            toast("Alterações salvas com Sucesso !")
+
             if(imageFile && imageFile.name){
                 const formDataImage = new FormData()
                 formDataImage.append("image", imageFile)
@@ -131,15 +131,17 @@ export default function CreateNewProduct(){
      }
 
     async function handleNewProduct(){
-        
+        if(!imageFile){
+            return toast("Insira uma imagem")
+        }
         if(!title){
             return toast("digite o nome do produto")
         }
         if(newTag){
             return toast("Você deixou uma tag sem adicionar no campo!")
         }
-        if(newTag){
-            return toast("Você deixou uma tag sem adicionar no campo!")
+        if(tags.length<=0){
+            return toast("ao menos uma tag dever ser adicionada!")
         }
 
         const formData = new FormData();
@@ -148,19 +150,25 @@ export default function CreateNewProduct(){
             formData.append("description", description);
             formData.append("category", category);
             formData.append("price", price);
-
-        tags.map((tag) =>{
-                
-            return formData.append("tags", tag)
-                
-        })
-      
+            formData.append("tags", tags)
+            tags.forEach(tag => formData.append('tags[]', tag));
+            
+     /*       const newData = 
+    {
+         title,
+         description,
+         category,
+         price,
+         tags
+    }
+        */
         await api
         .post("/products", formData)
         .then(toast("Salvo com Sucesso !"))
         .catch((error) => {
           if (error.response) {
-            alert(error.response.data.message);
+            toast(error.response.data.message);
+            return
           } else {
             toast("Erro ao cadastrar Prato");
           }
@@ -169,10 +177,12 @@ export default function CreateNewProduct(){
 
     }
     //const imageURL = imageFile ?? `${api.defaults.baseURL}/files/${imageFile}`
-    
+   
     return(
             <>
-            
+            <LoadingScreen
+            isLoading={!params}/>
+
             <Form>
                 
                 <ContainerContent>
@@ -211,7 +221,7 @@ export default function CreateNewProduct(){
                         placeholder = "Ex.:Salada Ceasar"
                         className ="product-name"
                         onChange = {e => setTitle(e.target.value)}
-                        value={title}
+                        value={title ? title : ""}
                         />
                         
                         <CategoryOptions
@@ -233,7 +243,7 @@ export default function CreateNewProduct(){
                                 ))
 
                                 }
-                             
+                              
                         </CategoryOptions>
                       
                         </fieldset>
@@ -266,9 +276,13 @@ export default function CreateNewProduct(){
                         <Input
                       
                         title="Preço"
-                        type="text"
+                        type="number"
                         id="product-price"
                         placeholder="00,00"
+                        
+                        min="0"
+                        lang="pt-br"
+                        pattern="^\d*(\.\d{0,2})?$"
                         className = "product-price"
                         onChange ={e => setPrice(e.target.value)}
                         value={price ? price : ''}
@@ -284,7 +298,7 @@ export default function CreateNewProduct(){
                         placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
                         className="product-description"
                         onChange ={e => setDescription(e.target.value)}
-                        value={description}
+                        value={description ? description : ''}
                         />
 
                         </fieldset>

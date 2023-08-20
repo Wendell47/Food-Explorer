@@ -68,7 +68,11 @@ export const Form = styled.div`
     .product-price{
         flex:1 0 auto;
     }
-
+    input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
     .product-description{
         flex:1 0 auto;
         

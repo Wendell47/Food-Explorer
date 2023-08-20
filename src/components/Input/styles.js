@@ -27,8 +27,8 @@ label{
     padding: 16px 12px;
 
     
-        &:hover{
-        outline: 1px solid white;
+        &:focus-within{
+        outline: 1px solid var(--bg-color-600);
     }
 
   
@@ -56,7 +56,7 @@ textArea{
     background: transparent;
     border: none;
     width: 100%;
-    height: 100%;
+    
     
     color:var(--color-white);
     

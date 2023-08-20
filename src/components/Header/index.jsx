@@ -2,10 +2,10 @@ import { Container, Content, Badge} from "./styles";
 import ContainerContent from "../ContainerContent";
 import Search from "../Search";
 import Logo from "../Logo";
-import Input from "../Input";
-import {FiSearch, FiLogOut, FiMenu, FiArrowLeft} from "react-icons/fi"
+
+import {FiLogOut, FiMenu, FiArrowLeft} from "react-icons/fi"
 import Button from "../button";
-import {PiReceipt} from "react-icons/pi"
+import {PiReceipt, PiPlusCircleFill} from "react-icons/pi"
 import {LuSalad, LuHistory, LuStar} from "react-icons/lu"
 import MenuMobile from "../menuMobile";
 import { useState  } from "react";
@@ -13,49 +13,62 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useEffect } from "react";
 import { api } from "../../services/api";
+//import UpdateCart from "../../hooks/updateCart";
 
 // eslint-disable-next-line react/prop-types
-export default function Header({onChange}){
+export default function Header({loading}){
 
     const {user, signOut} = useAuth()
     const [cartItem, setCartItems] = useState([])
     const authAdmin = user && user.isAdmin
-   
+    //const [updated, setUpdated] = useState()
+
+  
+    //console.log(loading)
     const navigate = useNavigate()
     const [MenuMobileOn, setMenuMobileOn] = useState(false)
     document.getElementsByClassName
     
     function handleMenuMobile(){
-        if (!MenuMobileOn ){
-            setMenuMobileOn(true)
-            return
-        }
-        else if(MenuMobileOn){
-            setMenuMobileOn(false)
-            return
-        }
+        !MenuMobileOn ? setMenuMobileOn(true) : setMenuMobileOn(false) 
     }
     function handleCreateProduct(){
         navigate('/CreateNewProduct')
     }
     function handleFavoriteDishes(){
+
         navigate('/FavoriteDishes')
     }
     function handleCart(){
         navigate("/Pedidos")
     }
-    function handleSignOut(){
 
+    function handleMobileCreateDish(){
+        handleMenuMobile()
+        handleCreateProduct()
+    }
+    
+    function handleMobileFavoriteDishes(){
+        handleMenuMobile()
+        handleFavoriteDishes()
+    }
+   
+    function handleSignOut(){
         signOut()
         navigate("/")
     }
 
-    useEffect(() => {
-        async function fetchCartItems(){
-            const {data} = await api.get("/cart")
-            setCartItems(data)
-        }
+    const fetchCartItems = async () => {const {data} = await api.get("/cart")
+    setCartItems(data)}
+
+    if(loading==true){
         fetchCartItems()
+
+    }
+    useEffect(() => {
+        
+        fetchCartItems()
+
     },[cartItem]) 
 
     return(
@@ -72,13 +85,15 @@ export default function Header({onChange}){
                     className={MenuMobileOn ? "" : "hide"}
                     hide={handleMenuMobile}
                     >
-                         <Search/>
+                         <Search
+                         closeMenuMobile={handleMenuMobile}
+                         />
 
                         <Button
                         title="Meus Favoritos"
                         btn="transparent"
                         icon={LuStar}
-                        onClick={handleFavoriteDishes}
+                        onClick={handleMobileFavoriteDishes}
                         />
 
                         <Button
@@ -95,7 +110,7 @@ export default function Header({onChange}){
                         title="Novo Prato"
                         icon={LuSalad}
                         btn="transparent"
-                        onClick={handleCreateProduct}
+                        onClick={handleMobileCreateDish}
                         />
                         :
                         ''
@@ -123,19 +138,29 @@ export default function Header({onChange}){
                 onClick={handleFavoriteDishes}
                 />
                 {
-                    authAdmin ? 
+            
                     <Button
                 
-                title="Novo Prato"
+                title="Histórico de Pedidos"
                 btn="transparent"
                 id="newPlate"
-                onClick={handleCreateProduct}
                 >
                
                 </Button>
-                : ''
+                
                 }
-                    <Button
+                   { 
+                   authAdmin ?
+                   <Button
+                
+                title={window.screen.width <= 900 ? "" : "Novo Prato"}
+                icon={PiPlusCircleFill}
+                btn={window.screen.width <= 900 ? "transparent" : "primary"}
+                onClick={handleCreateProduct}
+                >
+                </Button>
+                :
+                   <Button
                 
                 title={window.screen.width <= 900 ? "" : "Pedidos"}
                 icon={PiReceipt}
@@ -148,7 +173,7 @@ export default function Header({onChange}){
                     </span>
                     </Badge> 
                 </Button>
-                
+                }
                 <Button
                 icon={FiLogOut}
                 btn="transparent"

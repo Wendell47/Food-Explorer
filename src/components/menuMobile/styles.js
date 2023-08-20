@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 
 position: fixed;
-left: 0;
+
 right: 0;
 top: 0;
 bottom: 0;
@@ -12,7 +12,7 @@ width: 100%;
 height: 100%;
 display: grid;
 grid-template-rows: auto 1fr auto;
-transition: 200ms ease-in;
+transition: 200ms ease-out;
 opacity: 1;
 
 background: var(--bg-color-900);
@@ -24,9 +24,9 @@ background: var(--bg-color-900);
 }
 
 &.hide{
-    width:0;
+    width:100%;
     opacity: 0;
-    visibility: hidden;
+    right: 100%;
    }
 
 > div{

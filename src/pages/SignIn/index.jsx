@@ -27,11 +27,13 @@ export default function SignIn(){
         }
        
     }
-    console.log(isLoading)
+    console.log(password)
     return(
-        <Container>
 
+        <Container>
+               
             <ContainerContent>
+                
                 <Content>
                 <div>
                     <Logo
@@ -50,6 +52,7 @@ export default function SignIn(){
                  placeholder="Exemplo: exemplo@exemplo.com.br"
                  onChange ={e => setEmail(e.target.value)}
                  />
+
                  <Input 
                  title="Senha" 
                  icon={FiKey}

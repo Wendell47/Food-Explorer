@@ -7,21 +7,26 @@ import Spinner from "../loadingComponents/spinner"
 import { api } from "../../services/api"
 
 // eslint-disable-next-line react/prop-types
-export default function Search(){
+export default function Search({closeMenuMobile}){
     const navigate = useNavigate ()
-    const [search, setSearch]= useState('')
+    const [search, setSearch]= useState()
     const [isLoading, setIsLoading]= useState(false)
     const [dish, setDish]= useState([])
 
     const fetchSearch = async () =>{
         setIsLoading(true)
 
-        const {data} = await api.get(`/products?title=${search}&tags=`)
-        setDish(data)
+    
+            const {data} = await api.get(`/products?title=${search}`)
+
+            setDish(data)
+        
         setIsLoading(false)
+        
     }
     
-console.log(search)
+console.log(closeMenuMobile)
+//console.log(dish)
 
 useEffect(() =>{
     
@@ -32,13 +37,14 @@ useEffect(() =>{
         setDish([])
     }
     
-
+    
 },[search])
 
 function handleDishDetails(id){
    
     setDish([])
     navigate(`/FoodInfo/${id}`)
+    closeMenuMobile && closeMenuMobile()
     setSearch('')
 }
 
@@ -52,7 +58,8 @@ function handleDishDetails(id){
                 icon={isLoading ? Spinner : FiSearch}
                 placeholder="Busque por pratos ou ingredientes"
                 value={search}
-                onChange={e =>setSearch(e.target.value)}
+                type="search"
+                onChange={(e) =>setSearch(e.target.value)}
                 />
                 
                 <SearchContent>

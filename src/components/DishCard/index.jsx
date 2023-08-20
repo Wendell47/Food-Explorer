@@ -1,39 +1,37 @@
 /* eslint-disable react/prop-types */
 import { Container, AddToCard, Stepper, ProductFavIcon, Loading} from "./styles"
 import Button from "../button"
-import { FiPlus, FiMinus, FiHeart, FiArrowUpRight, FiEdit}from"react-icons/fi"
+import { FiPlus, FiMinus, FiHeart, FiEdit}from"react-icons/fi"
 import { FiAlertCircle} from "react-icons/fi"
 import { toast} from "react-toastify"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth} from "../../hooks/auth"
 import { api } from "../../services/api"
 import imgPlaceHolder  from "../../assets/PlaceHolderDish.svg"
+import { UpdateCart } from "../../hooks/updateCart"
 
-
-export default function ProductCard({favorited, data, imageURL}){
+export default function ProductCard({isFavorite, data, setFavorite = false, imageURL}){
     const navigate = useNavigate ()
     const {user} = useAuth()
     const  authAdmin = user && user.isAdmin
-
-    const [loading, setLoading] = useState(false)
-    const [loadingItem, setLoadingItem] = useState(false)    
+    const [loading, setLoading] = useState(false)   
+    const [update, setUpdate] = useState(false)
     const [count, setCount] = useState(0)
-  
-    const dishId = favorited.map(dish =>{
+    
+    const dishId = isFavorite.map(dish =>{
 
         if(dish.product_id === data.id){
             return dish.id
         }
          
     })
+   
+   const Update = UpdateCart(update)
 
-    useEffect(() =>{
-        setLoadingItem(true)
-    },[data.image])
-    
+    console.log(Update)
     async function HandleClick(){
-        
+        setFavorite(true)
         if(dishId <= 1){
             await api.post(`/favoriteDishes/${data.id}`)
             .then(toast("Prato adicionado como favorito"))
@@ -71,6 +69,7 @@ export default function ProductCard({favorited, data, imageURL}){
     function handleDishDetails(id){
 
         navigate(`/FoodInfo/${id}`)
+        
     }
     
     async function handleAddItensToCart(){
@@ -101,6 +100,7 @@ export default function ProductCard({favorited, data, imageURL}){
           }
         });
         setLoading(false)
+        setUpdate(true)
     }
     return(
         
@@ -129,11 +129,12 @@ export default function ProductCard({favorited, data, imageURL}){
             
            
             {
-            loadingItem ?
+            data ?
             <img 
             src={data.image ? imgPlaceHolder : imageURL  } 
             alt={data.image && data.description} 
             loading="lazy"
+            onClick={() => handleDishDetails(data.id)}
             />
             :
             <Loading/> 
@@ -158,7 +159,10 @@ export default function ProductCard({favorited, data, imageURL}){
 
             <AddToCard>
             <div>
-            <Stepper id="CountValue">
+         
+            </div>
+            <div>
+   <            Stepper id="CountValue">
 
                 <Button
                 icon={FiMinus}
@@ -174,9 +178,6 @@ export default function ProductCard({favorited, data, imageURL}){
                 />
 
             </Stepper>
-            </div>
-            <div>
-
                 <Button
                 title="incluir"
                 btn="primary"
@@ -184,12 +185,7 @@ export default function ProductCard({favorited, data, imageURL}){
                 onClick={handleAddItensToCart}
                 />
 
-                <Button
-                title=""
-                btn="btnDark"
-                icon={FiArrowUpRight}
-                onClick={() => handleDishDetails(data.id)}
-                />
+
 
             </div>
             </AddToCard>

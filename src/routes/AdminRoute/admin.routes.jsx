@@ -7,12 +7,18 @@ import CartDishes from '../../pages/CartDishes'
 import { Container,Content} from './styles'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+
+
 export default function AdminRoutes(){
+   
+
     return(
       
 
        <Container>
-       <Header/>
+       <Header
+        
+       />
         <Content>
         <Routes>
             

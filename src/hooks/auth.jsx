@@ -12,6 +12,7 @@ function AuthProvider({children}){
     const [data,setData] = useState({})
     const [loading,setLoading] = useState(false)
 
+
     async function signIn({email,password}){
         
         setLoading(true)
@@ -62,12 +63,15 @@ function AuthProvider({children}){
     }, [])
     
 
+   
+  
     return(
         <AuthContext.Provider value={{
             signIn, 
             signOut,
             user: data.user,
             isLoading:loading,
+            
             }}>
         {children}
       </AuthContext.Provider> 

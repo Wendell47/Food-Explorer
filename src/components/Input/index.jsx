@@ -15,7 +15,11 @@ export default function Input({title, TextArea = false, isUploadButton = false, 
 return(
     <>
     {
-      isUploadButton ?
+      isUploadButton  // é um bota de uplodad ?
+      
+      ? // se for um bota de uplodad
+
+
       <Container {...rest}>
          <label>{title}</label>
 
@@ -35,16 +39,22 @@ return(
         {children}
     </Container>
 
-    :
+    : // se nao for  ai faz isso
 
     <Container {...rest}>
+
       <label 
       className={displayHidden}
       >
         {title}
-      </label>
-      <div
 
+      </label>
+
+      <>
+       
+      </>
+      <div
+      
       >
         {Icon && <Icon size={20}/>}
         {price && <span>R$</span>}

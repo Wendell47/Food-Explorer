@@ -4,7 +4,7 @@ export const Container = styled.div`
 
 .loading{
     
-    color: var(--color-secondary);
+    color: var(--color-gray-400);
     display: flex;
     animation: circle 1s ease-out infinite;
 }
